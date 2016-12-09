@@ -8,9 +8,7 @@
     <artifactId>MySpring</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>WebSpring</module>
         <module>../JavaMongo</module>
-        <module>../HttpClient</module>
     </modules>
     <packaging>pom</packaging>
 
