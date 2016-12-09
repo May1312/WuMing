@@ -26,6 +26,7 @@
             <!-- 配置所有请求都进入拦截器 -->
             <mvc:mapping path="/mongo/**" />
             <mvc:exclude-mapping path="/mongo/login" />
+            <mvc:exclude-mapping path="/login" />
             <bean class="com.test.interceptor.UserInterceptor" />
 
         </mvc:interceptor>

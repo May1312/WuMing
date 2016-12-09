@@ -100,13 +100,13 @@ public class MongoController {
 		return "userlist";
 	}
 	@RequestMapping(value="/login",method = {RequestMethod.POST})
-	/*public ResponseEntity<Map> login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {//ajax请求方式*/
-	public ResponseEntity<Map> login( HttpServletRequest request,HttpServletResponse response,@RequestParam String name,@RequestParam String password){
-		User user = new User();
+	public ResponseEntity<Map> login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {//ajax请求方式
+	/*public ResponseEntity<Map> login( HttpServletRequest request,HttpServletResponse response,@RequestParam String name,@RequestParam String password){*/
+		//User user = new User();
 		//user.setName(request.getParameter("name"));
 		//user.setName(request.getParameter("password"));
-		user.setName(name);
-		user.setPassword(password);
+		//user.setName(name);
+		//user.setPassword(password);
 		String ticket = userService.login(user);
 		Map map = new HashMap();
 
@@ -124,6 +124,6 @@ public class MongoController {
 		}
 		map.put("msg","no user");
 		map.put("status",500);
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
 	}
 }

@@ -5,6 +5,7 @@ import com.test.bean.User;
 import com.test.dao.UserDao;
 import com.test.service.RedisService;
 import com.test.service.UserService;
+import com.test.util.MD5Utils;
 import com.test.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private RedisService redisService;
     public String login(User user) {
         User user2 = userDao.findUserByName(user.getName());
-        if(user.getPassword().equalsIgnoreCase(user2.getPassword())){
+        if(MD5Utils.md5(user.getPassword()).equalsIgnoreCase(user2.getPassword())){
             //save user infomation
             UserThreadLocal.set(user2);
             //

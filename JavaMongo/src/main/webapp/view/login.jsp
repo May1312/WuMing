@@ -65,13 +65,20 @@
                 url: "${pageContext.request.contextPath}/mongo/login",
                 data: JSON.stringify(datauser),
                 success: function (data) {
-
-                    if(data.status==200){
-                        window.location.href="/mongo/showpage";
+                    if(data){
+                        var data = eval(data);
+                        if(data.status==200){
+                            window.location.href="/mongo/showpage";
+                        }else{
+                            alert(data.msg);
+                        }
                     }
                 },
-                error: function () {
-                    alert("消息", "错误！", "info");
+                error: function (data) {
+                    //将json字符串转对象
+                    var data1 = JSON.parse(data.responseText);
+                    alert(data1.msg);
+                    window.location.reload();
                 }
             });
         }
