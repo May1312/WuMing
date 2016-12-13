@@ -152,10 +152,10 @@
     </script>
 </head>
 <body>
-<h2>Basic CRUD Application</h2>
+<h2>Test CRUD Databash</h2>
 <div class="demo-info" style="margin-bottom:10px">
     <div class="demo-tip icon-tip">&nbsp;</div>
-    <div>Click the buttons on datagrid toolbar to do crud actions.</div>
+    <h2>点击new user，新增一下你的信息再走哦！</h2>
 </div>
 
 <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
