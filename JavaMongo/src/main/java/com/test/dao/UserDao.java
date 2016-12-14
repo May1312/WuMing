@@ -15,6 +15,9 @@ public class UserDao {
 
         Query<User> query = MongoUtil.getDataStore().createQuery(User.class);
         query.field("name").equal(name);
-        return query.asList().get(0);
+       if (query.asList().size()>0){
+           return query.asList().get(0);
+        }
+        return null;
     }
 }

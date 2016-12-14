@@ -6,8 +6,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>登陆</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
-        <!-- <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>-->
+        <%--<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>--%>
         <script src="${pageContext.request.contextPath}/js/md5.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../css/icon.css">
+        <%--link rel="stylesheet" type="text/css" href="../css/demo.css">--%>
 		<!-- Scripts -->
 		<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/js/jquery.scrolly.min.js"></script>
@@ -18,61 +21,124 @@
 
     <body>
 	<!-- Header -->
-			<section id="header" class="dark">
+        <div id="div1">
+			<section id="header" class="dark" >
 				<header>
 					<h1>Welcome to Tessellate</h1>
 				</header>
 				<footer>
-					<a href="#first" class="button scrolly">Proceed to Login</a>
+					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
 				</footer>
 			</section>
-
+         </div>
 		<!-- First -->
+    <div id="div2" >
 			<section id="first" class="main">
 				<header>
-					<div class="container">
 						<h2>Please input your username and password</h2><br>
 						<center>
 						<form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" a>
 							<!--<div id="win" style="background: url('../picture/rain.gif') ">-->
 
-											<input id="txt_name" type="text" name="name" style="width:120px;height: 30px" /><br>
+                                            <div id="mydiv" style="color:#F00" ></div>
+											<input id="txt_name" type="text" name="name" style="width:120px;height: 30px" onblur="checkName(this.value)" /><br>
+                                            <input id="mymsg" type="hidden" value="" style="width:120px;height: 30px" />
 
 											<input id="txt_psd" type="password" name="password" autocomplete="off" style="width:120px;height: 30px" />
-											<input id="txt_psd2" type="password2" name="password" autocomplete="off" hidden="hidden" />
-
 
 											<a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="login()">Login</a>  <%--ajax重定向302错误--%>
 											<%--<input type="submit" value="login">--%>
-
-											<a href="#">Cancel</a>
+											<a href="#second" onclick="changPage('div3','div2')">Regist</a>
 
 						</form>
 						</center>
-					</div>
 				</header>
 			</section>
-
+    </div>
+    <!-- Second -->
+    <div id="div3" hidden="hidden">
+    <section id="second" class="main">
+        <header>
+            <div class="container">
+                <h2>Welcome to Regist As Member</h2>
+            </div>
+        </header>
+        <div class="content dark style2">
+            <div class="container">
+                <div class="row">
+                    <div class="4u 12u(narrow)">
+                        <section>
+                            <h3>Augue vivamus sed ipsum commodo lorem dolor</h3>
+                            <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+                                 closed="true" buttons="#dlg-buttons">
+                                <div class="ftitle">Pleasu Input Your Information</div>
+                                <form id="fm" novalidate>
+                                    <div id="mydiv2" style="color:#F00" ></div>
+                                    <div class="fitem" hidden>
+                                        <label>UserId:</label>
+                                        <input name="userId" class="easyui-validatebox">
+                                    </div>
+                                    <div class="fitem">
+                                        <input id="name" name="name" type="text" placeholder="Name" required="true" validType="equals['#pwd']" onblur="checkName(this.value)" />
+                                    </div>
+                                    <div class="fitem">
+                                        <input id="psd" name="password" placeholder="Password" type="password" required="true" />
+                                    </div>
+                                    <div class="fitem">
+                                        <input id="age" name="age" placeholder="Age" type="text" required="true"/>
+                                    </div>
+                                    <div class="fitem">
+                                        <label>Sex:</label>
+                                        <input type="radio" name="sex" value="1"/>Male
+                                        <input type="radio" name="sex" value="0" checked />Female<br>
+                                    </div>
+                                    <div class="fitem" hidden>
+                                        <label>RegistTime:</label>
+                                        <input name="registTime" class="easyui-validatebox">
+                                    </div>
+                                </form>
+                                </div>
+                            <footer>
+                                <a href="#" onclick="saveUser()">Save</a>
+                                <a href="#">Cancel</a>
+                            </footer>
+                        </section>
+                    </div>
+                    <div class="8u 12u(narrow)">
+                        <div class="row">
+                            <div class="6u"><a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
 		<!-- Footer-->
-			<section id="footer">
-				<div class="copyright">
+			<section id="footer" >
 					<ul class="menu">
 						<li>&copy; It's My First Web.</li><li>Design: <a href="#">HANG</a></li>
 					</ul>
-				</div>
 			</section>
-
 	</body>
     <script type="text/javascript">
         function login() {
+            document.getElementById('div1').setAttribute('hidden','hidden')
             var name = $("#txt_name").val();
             var psd = $("#txt_psd").val();
             if(name==null || name == ""){
-                alert("Please input your name");
+                document.getElementById('mydiv').innerHTML = 'Please input your name！'
+               /* alert("Please input your name");*/
                 return;
             }
             if(psd==null || psd == ""){
-                alert("Please input your password");
+                document.getElementById('mydiv').innerHTML = 'Please input your password！'
+                /*alert("Please input your password");*/
                 return;
             }
 
@@ -100,7 +166,12 @@
                     //将json字符串转对象
                     var data1 = JSON.parse(data.responseText);
                     alert(data1.msg);
-                    window.location.reload();
+                    /*window.location.reload();*/
+                    $('#txt_psd').val('');
+                    /*$('#mymsg').val('密码错误');
+                    $('#mymsg').prop('type','text')*/
+                    document.getElementById('mydiv').innerHTML = '密码错误哦！'
+
                 }
             });
         }
@@ -111,6 +182,93 @@
             var json = {
                 "name": name,
                 "password": psd
+            };
+            return json;
+        }
+        function checkName(name){
+            if(name) {
+                $.ajax({
+                    contentType: 'application/json',
+                    type: 'get',
+                    async: true,
+                    dataType: 'json',
+                    url: '/login/checkName?' + "name=" + name,
+                    success: function (dataResult, textStatus) {
+                        if (dataResult['count'] == 0) {
+                            document.getElementById('mydiv').innerHTML = 'The name is not exist!';
+                            //置空input value值
+                            $('#txt_name').val("");
+                        }
+                    },
+                    error: function () {
+                        alert("系统繁忙，请稍后再试！");
+                    }
+                })
+            }
+        }
+/*        function screenCtrl(objname) {
+            screenWidth = screen.availWidth; //屏幕宽度
+            screenHeight = screen.availHeight; //屏幕高度
+            $("#divId").css("height",screenHeight);
+            $("#divId").css("width",screenWidth);
+            $("img").css("height",screenHeight);
+            $("img").css("width",screenWidth);
+//				document.getElementById(objname).style.height = screenHeight + 'px';
+//				document.getElementById(objname).style.width = screenWidth + 'px';
+        }
+        $(document).ready(function() {
+            screenCtrl('div3');
+        });*/
+        function changPage(first,Second){
+            document.getElementById(first).removeAttribute('hidden');
+            document.getElementById(Second).setAttribute('hidden','hidden');
+
+        }
+        function saveUser() {
+            document.getElementById('div1').setAttribute('hidden','hidden')
+            //为空不提交
+            var name =  $('#name').val();
+            if(!name){
+                document.getElementById('mydiv2').innerHTML = 'Please input your name!'
+                return;
+            }
+            var password =  hex_md5($('#psd').val());
+            if(!password){
+                document.getElementById('mydiv2').innerHTML = 'Please input your password!'
+                return;
+            }
+            var age =  $('#age').val();
+            var sex =  $('#sex').val();
+
+                var data = GetJsonData(name,password,age,sex);
+                $.ajax({
+                    async : true,
+                    dataType: 'json', /* 请求数据类型 */
+                    type: 'post',
+                    contentType: 'application/json; charset=utf-8', /* 定义返回数据类型 */
+                    data: JSON.stringify(data), /* 格式化json */
+                    url: '/login/regist',
+                    success: function (result) {
+                        if (result.status == 200) {
+                            // redirect to new page
+                            window.Location.href('/mongo/show');
+                        } else {
+                            $.messager.show({
+                                title: 'Error',
+                                msg: result.msg
+                            });
+                        }
+                    }
+                });
+                /*input框缓存*/
+                $('#fm').form('clear');
+        }
+        function GetJsonData(name,password,age,sex) {
+            var json = {
+                "name": name,
+                "password": password,
+                "age": age,
+                "sex": sex
             };
             return json;
         }

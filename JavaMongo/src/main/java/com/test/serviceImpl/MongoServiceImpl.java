@@ -3,6 +3,7 @@ package com.test.serviceImpl;
 import com.test.bean.User;
 import com.test.dao.MongoDao;
 import com.test.service.MongoService;
+import com.test.service.UserService;
 import com.test.util.MD5Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class MongoServiceImpl implements MongoService {
 	
 	@Autowired
 	private MongoDao mongodab;
+	@Autowired
+	private UserService userService;
 
 	public void add(User user) {
 		try {
@@ -22,7 +25,9 @@ public class MongoServiceImpl implements MongoService {
 			System.out.print(user.getUserId());
 			if(StringUtils.isBlank(user.getUserId())){
 					user.setUserId(MD5Utils.md5(user.getName()+user.getAge()));
+					user.setPassword(MD5Utils.md5(user.getPassword()));
 					mongodab.add(user);
+					userService.login(user);
 					System.out.print("执行新增方法 ："+user);
 			}else {
 				mongodab.updateUser(user);

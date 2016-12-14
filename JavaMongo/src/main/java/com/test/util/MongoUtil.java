@@ -7,9 +7,9 @@ import com.mongodb.MongoClient;
 
 public class MongoUtil {
 	
-	private static String dbIp = "127.0.0.1";
+	private static String dbIp = "120.77.169.190";
 	private static int dbPort = 27017;
-	private static String mydb= "test";
+	private static String mydb= "hang";
 
 	public static AdvancedDatastore getDataStore(){
 		Morphia morphia = new Morphia();

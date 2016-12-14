@@ -23,18 +23,21 @@ public class UserServiceImpl implements UserService {
     private RedisService redisService;
     public String login(User user) {
         User user2 = userDao.findUserByName(user.getName());
-        if(MD5Utils.md5(user.getPassword()).equalsIgnoreCase(user2.getPassword())){
-            //save user infomation
-            UserThreadLocal.set(user2);
-            //
-            String ticket = user.getName();
-            String s = JSON.toJSONString(user);
-            redisService.set(ticket,s,60*60);
-            return ticket;
-        }else{
-            System.out.println("密码错误 方法");
-            return null;
-        }
+        if (user2 != null){
+            if (MD5Utils.md5(user.getPassword()).equalsIgnoreCase(user2.getPassword())) {
+                //save user infomation
+                UserThreadLocal.set(user2);
+                //
+                String ticket = user.getName();
+                String s = JSON.toJSONString(user);
+                redisService.set(ticket, s, 60 * 60);
+                return ticket;
+            } else {
+                System.out.println("密码错误 方法");
+                return null;
+            }
+      }
+    return null;
     }
 
     public User findUserCacheByTicket(String ticket) {
