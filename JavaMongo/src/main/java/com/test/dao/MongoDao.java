@@ -3,6 +3,7 @@ package com.test.dao;
 import com.mongodb.*;
 import com.test.bean.User;
 import com.test.util.DateUtils;
+import com.test.util.MD5Utils;
 import com.test.util.MongoUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.mongodb.morphia.AdvancedDatastore;

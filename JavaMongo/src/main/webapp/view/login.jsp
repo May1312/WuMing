@@ -1,30 +1,27 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>登陆</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
-        <%--<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>--%>
         <script src="${pageContext.request.contextPath}/js/md5.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/easyui.css">
-        <link rel="stylesheet" type="text/css" href="../css/icon.css">
-        <%--link rel="stylesheet" type="text/css" href="../css/demo.css">--%>
-		<!-- Scripts -->
-		<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/assets/js/jquery.scrolly.min.js"></script>
-		<script src="${pageContext.request.contextPath}/assets/js/skel.min.js"></script>
-		<script src="${pageContext.request.contextPath}/assets/js/util.js"></script>
-		<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
     </head>
-
+    <!-- Scripts -->
+        <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery.scrolly.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/skel.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/util.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
     <body>
 	<!-- Header -->
         <div id="div1">
 			<section id="header" class="dark" >
 				<header>
-					<h1>Welcome to Tessellate</h1>
+					<h1>Welcome to MyWeb</h1>
+                    <p>It's My Fist Web <a href="#">HTML5 UP</a></p>
 				</header>
 				<footer>
 					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
@@ -35,20 +32,24 @@
     <div id="div2" >
 			<section id="first" class="main">
 				<header>
-						<h2>Please input your username and password</h2><br>
+						<h2>Please input your username and password</h2>
+                    <p>我们好像在哪见过你记得吗?那时你还是个孩子我在窗棂下<br>
+                        我猜着你的名字刻在了墙上,我画了你的摸样对着弯月亮</p>
 						<center>
 						<form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" a>
 							<!--<div id="win" style="background: url('../picture/rain.gif') ">-->
 
                                             <div id="mydiv" style="color:#F00" ></div>
-											<input id="txt_name" type="text" name="name" style="width:120px;height: 30px" onblur="checkName(this.value)" /><br>
+											<input id="txt_name" type="text" name="name" style="width:120px;height: 30px" onblur="checkName(this.value)" placeholder="name"/><br>
                                             <input id="mymsg" type="hidden" value="" style="width:120px;height: 30px" />
 
-											<input id="txt_psd" type="password" name="password" autocomplete="off" style="width:120px;height: 30px" />
+											<input id="txt_psd" type="password" name="password" autocomplete="off" style="width:120px;height: 30px" placeholder="password"/><br>
 
-											<a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="login()">Login</a>  <%--ajax重定向302错误--%>
+                                            <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Login" onclick="login()" />
+											<%--<a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="login()">Login</a>--%>  <%--ajax重定向302错误--%>
 											<%--<input type="submit" value="login">--%>
-											<a href="#second" onclick="changPage('div3','div2')">Regist</a>
+											<%--<a href="#second" onclick="changPage('div3','div2')">Regist</a>--%>
+                                            <input type="button" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')"/>
 
 						</form>
 						</center>
@@ -98,10 +99,14 @@
                                     </div>
                                 </form>
                                 </div>
+                            <div>
                             <footer>
-                                <a href="#" onclick="saveUser()">Save</a>
-                                <a href="#">Cancel</a>
+                                <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Save" onclick="saveUser()"  />
+                                <%--<a href="#" onclick="saveUser()">Save</a>--%>
+                                <%--<a href="#">Cancel</a>--%>
+                                <input  type="button" value="Cancel" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" />
                             </footer>
+                            </div>
                         </section>
                     </div>
                     <div class="8u 12u(narrow)">
@@ -144,7 +149,7 @@
 
            // $('#form1').submit();
 
-             var datauser = GetJsonData();
+             var datauser = GetJsonData1();
             $.ajax({
 
                 type: "POST",
@@ -175,7 +180,7 @@
                 }
             });
         }
-        function GetJsonData() {
+        function GetJsonData1() {
             var name = $("#txt_name").val();
             var psd = $("#txt_psd").val();
             psd = hex_md5(psd);
@@ -186,6 +191,8 @@
             return json;
         }
         function checkName(name){
+            //首行   尾行的 空格替除
+            name = name.replace(/^\s+|\s+$/g, '');
             if(name) {
                 $.ajax({
                     contentType: 'application/json',
@@ -198,6 +205,13 @@
                             document.getElementById('mydiv').innerHTML = 'The name is not exist!';
                             //置空input value值
                             $('#txt_name').val("");
+                        }else{
+                            if (dataResult['count'] > 0) {
+                                document.getElementById('mydiv2').innerHTML = 'The name is exist,Please login!';
+                                //置空input value值
+                                $('#name').val("");
+                            }
+                            yourname=true;
                         }
                     },
                     error: function () {
@@ -228,17 +242,20 @@
             document.getElementById('div1').setAttribute('hidden','hidden')
             //为空不提交
             var name =  $('#name').val();
+            //首行   尾行的 空格替除
+           name = name.replace(/^\s+|\s+$/g, '');
             if(!name){
                 document.getElementById('mydiv2').innerHTML = 'Please input your name!'
                 return;
             }
-            var password =  hex_md5($('#psd').val());
+            var password = $('#psd').val();
             if(!password){
                 document.getElementById('mydiv2').innerHTML = 'Please input your password!'
                 return;
             }
+            password =  hex_md5($('#psd').val());
             var age =  $('#age').val();
-            var sex =  $('#sex').val();
+            var sex =  $('input:radio:checked').val();
 
                 var data = GetJsonData(name,password,age,sex);
                 $.ajax({
@@ -251,7 +268,7 @@
                     success: function (result) {
                         if (result.status == 200) {
                             // redirect to new page
-                            window.Location.href('/mongo/show');
+                            window.location.href('/mongo/show');
                         } else {
                             $.messager.show({
                                 title: 'Error',
