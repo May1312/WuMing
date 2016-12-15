@@ -38,8 +38,6 @@ public class LoginController {
         mongoService.add(user);
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("status", "200");
-        Map<Object, Object> map2 = new HashMap<Object, Object>();
-        map2.put("result", map);
         return ResponseEntity.ok(map);
     }
 }

@@ -99,7 +99,7 @@
                                     </div>
                                 </form>
                                 </div>
-                            <div>
+                            <div align="center">
                             <footer>
                                 <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Save" onclick="saveUser()"  />
                                 <%--<a href="#" onclick="saveUser()">Save</a>--%>
@@ -268,17 +268,14 @@
                     success: function (result) {
                         if (result.status == 200) {
                             // redirect to new page
-                            window.location.href('/mongo/show');
+                            window.location.href='/mongo/showpage';
                         } else {
-                            $.messager.show({
-                                title: 'Error',
-                                msg: result.msg
-                            });
+                            alert("error");
                         }
                     }
                 });
                 /*input框缓存*/
-                $('#fm').form('clear');
+                $('#fm').reset;
         }
         function GetJsonData(name,password,age,sex) {
             var json = {
