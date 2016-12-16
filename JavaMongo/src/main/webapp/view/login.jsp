@@ -5,9 +5,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="${pageContext.request.contextPath}/assets/js/ie/html5shiv.js"></script>
         <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
         <title>登陆</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie8.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie9.css" />
         <script src="${pageContext.request.contextPath}/js/md5.js"></script>
     </head>
     <!-- Scripts -->
@@ -22,7 +25,7 @@
 			<section id="header" class="dark" >
 				<header>
 					<h1>Welcome to MyWeb</h1>
-                    <p>你好,ip为:${ip}的用户  <a href="${pageContext.request.contextPath}/images/psb.jpg">HTML5 UP</a></p>
+                    <p>你好,你当前的ip为:${ip}.  <a href="${pageContext.request.contextPath}/images/psb.jpg">HTML5</a></p>
 				</header>
 				<footer>
 					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>

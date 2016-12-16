@@ -32,11 +32,9 @@ public class UserServiceImpl implements UserService {
                 //
                 String ticket = user.getName();
                 String s = JSON.toJSONString(user);
-                log4j.info("执行redis");
                 redisService.set(ticket, s, 60 * 60);
                 return ticket;
             } else {
-                log4j.info("执行生成ticket异常");
                 System.out.println("密码错误 方法");
                 return null;
             }

@@ -30,6 +30,7 @@ public class LoginController {
     public String login(HttpServletRequest request,Model model){
         String ip = request.getHeader("X-Real-IP");
         System.out.println("您的登陆ip为："+ip);
+        log4j.info("ip:"+ip+"访问");
         model.addAttribute("ip",ip);
         return "login";
     }
@@ -42,6 +43,7 @@ public class LoginController {
     }
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     public ResponseEntity<Map<Object, Object>> receiveDate(@RequestBody User user) {
+        log4j.info("注册用户:"+user.getName());
         mongoService.add(user);
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("status", "200");
