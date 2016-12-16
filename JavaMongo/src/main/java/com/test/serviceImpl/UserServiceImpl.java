@@ -7,6 +7,8 @@ import com.test.service.RedisService;
 import com.test.service.UserService;
 import com.test.util.MD5Utils;
 import com.test.util.UserThreadLocal;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RedisService redisService;
+
+    private static final Log logger = LogFactory.getLog(UserServiceImpl.class);
     public String login(User user) {
         User user2 = userDao.findUserByName(user.getName());
         if (user2 != null){
@@ -30,9 +34,11 @@ public class UserServiceImpl implements UserService {
                 //
                 String ticket = user.getName();
                 String s = JSON.toJSONString(user);
+                logger.info("执行生成ticket");
                 redisService.set(ticket, s, 60 * 60);
                 return ticket;
             } else {
+                logger.info("执行生成ticket异常");
                 System.out.println("密码错误 方法");
                 return null;
             }

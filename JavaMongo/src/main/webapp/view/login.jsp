@@ -111,12 +111,12 @@
                     </div>
                     <div class="8u 12u(narrow)">
                         <div class="row">
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic01.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic02.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic03.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic04.jpg" alt="" /></a></div>
+                           <%-- <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic05.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic06.jpg" alt="" /></a></div>--%>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,8 @@
                     if(data){
                         var data = eval(data);
                         if(data.status==200){
-                            window.location.href="/mongo/showpage";
+                            window.location.href="${pageContext.request.contextPath}/mongo/showpage";
+                            return false
                         }else{
                             alert(data.msg);
                         }
@@ -268,7 +269,8 @@
                     success: function (result) {
                         if (result.status == 200) {
                             // redirect to new page
-                            window.location.href='/mongo/showpage';
+                            window.location.href='${pageContext.request.contextPath}/mongo/showpage';
+                            return false;
                         } else {
                             alert("error");
                         }
