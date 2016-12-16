@@ -6,6 +6,7 @@ import com.test.service.MongoService;
 import com.test.service.UserService;
 import com.test.util.CookieUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.Map;
 @Controller
 public class MongoController {
 
+	static Logger log4j = Logger.getLogger(MongoController.class.getClass());
 	@Autowired
 	private MongoService mongoService;
 
@@ -111,7 +113,9 @@ public class MongoController {
 		Map map = new HashMap();
 
 		if (StringUtils.isNotBlank(ticket)) {
-			CookieUtils.setCookie(request, response, "hang", ticket);
+			log4j.info("设置浏览器ticket："+ticket);
+			CookieUtils.setCookie(request, response, "hang", ticket, 60 * 60 * 24 * 1, true);
+			//CookieUtils.setCookie(request, response, "hang", ticket);
 			try {
 				//重定向可以  转发不行
 				//response.sendRedirect("/mongo/showpage");

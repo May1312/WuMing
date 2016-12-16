@@ -21,7 +21,7 @@
 			<section id="header" class="dark" >
 				<header>
 					<h1>Welcome to MyWeb</h1>
-                    <p>It's My Fist Web <a href="#">HTML5 UP</a></p>
+                    <p>It's My Fist Web <a href="${pageContext.request.contextPath}/images/psb.jpg"">HTML5 UP</a></p>
 				</header>
 				<footer>
 					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
@@ -33,8 +33,8 @@
 			<section id="first" class="main">
 				<header>
 						<h2>Please input your username and password</h2>
-                    <p>我们好像在哪见过你记得吗?那时你还是个孩子我在窗棂下<br>
-                        我猜着你的名字刻在了墙上,我画了你的摸样对着弯月亮</p>
+                    <p>我们好像在哪见过你记得吗?那时你还是个孩子我在窗棂下,<br>
+                        我猜着你的名字刻在了墙上,我画了你的摸样对着弯月亮.</p>
 						<center>
 						<form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" a>
 							<!--<div id="win" style="background: url('../picture/rain.gif') ">-->
@@ -111,12 +111,12 @@
                     </div>
                     <div class="8u 12u(narrow)">
                         <div class="row">
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic01.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic02.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic03.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic04.jpg" alt="" /></a></div>
+                            <%--<div class="6u"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
+                            <div class="6u"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>--%>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
 		<!-- Footer-->
 			<section id="footer" >
 					<ul class="menu">
-						<li>&copy; It's My First Web.</li><li>Design: <a href="#">HANG</a></li>
+						<li>&copy; It's My First Web.</li><li>Design: <a href="${pageContext.request.contextPath}/images/psb.jpg">HANG</a></li>
 					</ul>
 			</section>
 	</body>
