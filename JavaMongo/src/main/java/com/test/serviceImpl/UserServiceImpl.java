@@ -7,8 +7,7 @@ import com.test.service.RedisService;
 import com.test.service.UserService;
 import com.test.util.MD5Utils;
 import com.test.util.UserThreadLocal;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
-
+    static Logger log4j = Logger.getLogger(UserServiceImpl.class.getClass());
     @Autowired
     private UserDao userDao;
 
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserService {
                 //
                 String ticket = user.getName();
                 String s = JSON.toJSONString(user);
-                logger.info("执行生成ticket");
+                log4j.info("执行redis");
                 redisService.set(ticket, s, 60 * 60);
                 return ticket;
             } else {

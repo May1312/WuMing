@@ -13,11 +13,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.test.spring</groupId>
-			<artifactId>com.test.spring.httpclient</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>3.3.0</version>
