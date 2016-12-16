@@ -90,10 +90,6 @@ public class MongoController {
 			map.put("count",count);
 			return ResponseEntity.ok(map);
 	}
-	@RequestMapping(value="/angular",method = {RequestMethod.GET})
-	public String angular(){
-			return "angular";
-	}
 
 	@RequestMapping(value = "/showpage", method = {RequestMethod.GET})
 	public String showpage(Model model,@RequestParam(value = "currentPage",defaultValue = "0") int currentPage,@RequestParam(value = "rows",defaultValue = "20") int pageSize) {

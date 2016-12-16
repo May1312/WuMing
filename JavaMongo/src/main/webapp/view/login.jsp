@@ -37,8 +37,7 @@
 			<section id="first" class="main">
 				<header>
 						<h2>Please input your username and password</h2>
-                    <p>我们好像在哪见过<br>
-                        我猜着你的名字刻在了墙上,你画了我的摸样对着弯月亮.</p>
+                    <h4>我猜着你的名字刻在了墙上,你画了我的摸样对着弯月亮.</h4>
 						<center>
 						<form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" a>
 							<!--<div id="win" style="background: url('../picture/rain.gif') ">-->
