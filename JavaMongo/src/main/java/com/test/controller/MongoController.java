@@ -4,7 +4,7 @@ import com.test.bean.User;
 import com.test.bean.pageBean;
 import com.test.service.MongoService;
 import com.test.service.UserService;
-import com.test.util.CookieUtils;
+import com.test.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,8 +114,8 @@ public class MongoController {
 
 		if (StringUtils.isNotBlank(ticket)) {
 			log4j.info("设置浏览器ticket："+ticket);
-			CookieUtils.setCookie(request, response, "hang", ticket, 60 * 60 * 24 * 1, true);
-			//CookieUtils.setCookie(request, response, "hang", ticket);
+			//CookieUtils.setCookie(request, response, "hang", ticket, 60 * 60 * 24 * 1, true);
+			CookieUtil.addCookie("hang", ticket, true, request, response);
 			try {
 				//重定向可以  转发不行
 				//response.sendRedirect("/mongo/showpage");

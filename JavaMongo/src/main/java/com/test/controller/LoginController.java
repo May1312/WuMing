@@ -2,14 +2,17 @@ package com.test.controller;
 
 import com.test.bean.User;
 import com.test.service.MongoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,10 +23,14 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
+    static Logger log4j = Logger.getLogger(LoginController.class.getClass());
     @Autowired
     private MongoService mongoService;
     @RequestMapping(value = "",method= RequestMethod.GET)
-    public String login(){
+    public String login(HttpServletRequest request,Model model){
+        String ip = request.getHeader("X-Real-IP");
+        System.out.println("您的登陆ip为："+ip);
+        model.addAttribute("ip",ip);
         return "login";
     }
     @RequestMapping(value = "/checkName",method= RequestMethod.GET)

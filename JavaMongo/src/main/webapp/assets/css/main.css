@@ -1417,7 +1417,7 @@ button.alt:hover,
 #header {
 	position: relative;
 	margin: 0;
-	background-image: url("images/overlay.png"), url("../../images/header2.jpg");
+	background-image: url("images/overlay.png"), url("../../images/800.jpg");
 	background-size: auto, cover;
 	background-position: top left, center center;
 	background-repeat: repeat, no-repeat;
@@ -1500,6 +1500,17 @@ button.alt:hover,
 	background: #fff;
 }
 
+#first {
+	position: relative;
+	margin: 0;
+	background-image:url("../../images/header2.jpg");
+	background-size: auto, cover;
+	background-position: top left, center center;
+	background-repeat: repeat, no-repeat;
+	/*#padding: 14em 0 14em 0;*/
+	text-align: center;
+	color: #fff;
+}
 /* Footer */
 
 #footer {

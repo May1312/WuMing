@@ -10,7 +10,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="jquery,ui,easy,easyui,web">
     <meta name="description" content="easyui help you build your web page easily!">
-    <title>jQuery EasyUI Demo</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
+    <title>welcome</title>
     <link rel="stylesheet" type="text/css" href="../css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../css/icon.css">
     <link rel="stylesheet" type="text/css" href="../css/demo.css">
@@ -205,6 +206,10 @@
         <div class="fitem">
             <label>Name:</label>
             <input id="name" name="name" class="easyui-validatebox" required="true" validType="equals['#pwd']" onblur="checkName(this.value)" />
+        </div>
+        <div class="fitem">
+            <label>Password:</label>
+            <input id="password" name="password" class="easyui-validatebox" required="true" validType="equals['#pwd']" />
         </div>
         <div class="fitem">
             <label>Age:</label>

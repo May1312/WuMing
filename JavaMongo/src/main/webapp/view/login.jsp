@@ -5,6 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
         <title>登陆</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
         <script src="${pageContext.request.contextPath}/js/md5.js"></script>
@@ -21,7 +22,7 @@
 			<section id="header" class="dark" >
 				<header>
 					<h1>Welcome to MyWeb</h1>
-                    <p>It's My Fist Web <a href="${pageContext.request.contextPath}/images/psb.jpg"">HTML5 UP</a></p>
+                    <p>你好,ip为:${ip}的用户  <a href="${pageContext.request.contextPath}/images/psb.jpg">HTML5 UP</a></p>
 				</header>
 				<footer>
 					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
@@ -33,8 +34,8 @@
 			<section id="first" class="main">
 				<header>
 						<h2>Please input your username and password</h2>
-                    <p>我们好像在哪见过你记得吗?那时你还是个孩子我在窗棂下,<br>
-                        我猜着你的名字刻在了墙上,我画了你的摸样对着弯月亮.</p>
+                    <p>我们好像在哪见过<br>
+                        我猜着你的名字刻在了墙上,你画了我的摸样对着弯月亮.</p>
 						<center>
 						<form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" a>
 							<!--<div id="win" style="background: url('../picture/rain.gif') ">-->
@@ -59,11 +60,11 @@
     <!-- Second -->
     <div id="div3" hidden="hidden">
     <section id="second" class="main">
-        <header>
+        <%--<header>
             <div class="container">
                 <h2>Welcome to Regist As Member</h2>
             </div>
-        </header>
+        </header>--%>
         <div class="content dark style2">
             <div class="container">
                 <div class="row">

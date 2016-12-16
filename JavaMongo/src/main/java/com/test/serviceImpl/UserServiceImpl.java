@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RedisService redisService;
 
-    private static final Log logger = LogFactory.getLog(UserServiceImpl.class);
     public String login(User user) {
         User user2 = userDao.findUserByName(user.getName());
         if (user2 != null){
@@ -37,7 +36,7 @@ public class UserServiceImpl implements UserService {
                 redisService.set(ticket, s, 60 * 60);
                 return ticket;
             } else {
-                logger.info("执行生成ticket异常");
+                log4j.info("执行生成ticket异常");
                 System.out.println("密码错误 方法");
                 return null;
             }
