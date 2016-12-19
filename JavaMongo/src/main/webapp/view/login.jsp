@@ -12,6 +12,169 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie8.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie9.css" />
         <script src="${pageContext.request.contextPath}/js/md5.js"></script>
+        <style type="text/css">
+            .login-form {
+                width:400px;
+                height:177px;
+                margin:70px auto 0;
+                padding-top:73px;
+                position:relative;
+                box-shadow:0 3px 3px rgba(21,62,78,0.8);
+            }
+            .login-form:before {
+                content:"";
+                position:absolute;
+                top:-50px;
+                left:150px;
+                width:102px;
+                height:102px;
+                padding:2px;
+                border:1px solid rgb(216,216,219);
+                background:#fff url("../images/profilepicture.jpg") no-repeat 2px 2px;
+            }
+            .not-registered {
+                position:absolute;
+                color:rgb(153,153,153);
+                font-weight:bold;
+                font-size:13px;
+                top:calc(100% + 20px);
+                background-color:rgb(255,255,255);
+                width:400px;
+                height:46px;
+                margin:0 auto;
+                line-height:46px;
+                text-align: center;
+                box-shadow:0 3px 3px rgba(21,62,78,0.8);
+            }
+            .not-registered a {
+                margin-left:5px;
+                text-decoration: none;
+                color:rgb(52,119,182);
+                cursor: pointer;
+            }
+            .login-form div {
+                width:216px;
+                height:28px;
+                margin:20px auto;
+                position:relative;
+                line-height:28px;
+                border:none;
+            }
+            .login-form .user-icon,
+            .login-form .password-icon {
+                display:inline-block;
+                font-family: 'loginform-icon';
+                font-size:15px;
+                text-align:center;
+                line-height:28px;
+                color:rgb(153,153,153);
+                position:absolute;
+                left:1px;
+                top:1px;
+                background-color:rgb(255,255,255);
+                border:none;
+                border-right:1px solid rgb(229,229,232);
+                width:30px;
+                height:28px;
+                transition: all 300ms linear;
+            }
+            .login-form .username input, .login-form .password input {
+                height:100%;
+                width:calc(100% - 40px);
+                padding-left:40px;
+                border-radius:2px;
+                border:1px solid;
+                border-color:rgb(229,229,232) rgb(220,220,221) rgb(213,213,213) rgb(220,220,221);
+                display:block;
+                transition: all 300ms linear;
+            }
+
+            .login-form .icon:before, .login-form .icon:after {
+                content:"";
+                position:absolute;
+                top:10px;
+                left:30px;
+                width:0;
+                height:0;
+                border:4px solid transparent;
+                border-left-color:rgb(255,255,255);
+            }
+            .login-form .icon:before {
+                top:9px;
+                border:5px solid transparent;
+                border-left-color:rgb(229,229,232);
+            }
+            .login-form .username input:focus, .login-form .password input:focus {
+                border-color:rgb(69,153,228);
+                box-shadow:0 0 2px 1px rgb(200,223,244);
+            }
+            .login-form .username input:focus + span, .login-form .password input:focus + span {
+                color:rgb(51,51,51);
+            }
+            .login-form .username input:focus + span:after, .login-form .password input:focus + span:after {
+                border-left-color:rgb(250,250,250);
+            }
+
+            .login-form .account-control label {
+                margin-left:24px;
+                font-size:12px;
+                font-family: Arial, Helvetica, sans-serif;
+                cursor:pointer;
+            }
+            .login-form button[type="submit"] {
+                color:#fff;
+                font-weight:bold;
+                float:right;
+                width:68px;
+                height:30px;
+                position:relative;
+                background-size:66px 28px,68px 29px;
+                border:none;
+                border-top:1px solid rgb(52,118,181);
+                border-radius:2px;
+                box-shadow:inset 0 1px 0 rgb(86,174,251);
+                text-shadow:0 1px 1px rgb(51,113,173);
+                transition: all 200ms linear;
+            }
+            .login-form button[type="submit"]:hover {
+                text-shadow:0 0 2px rgb(255,255,255);
+                box-shadow:inset 0 1px 0 rgb(86,174,251),0 0 10px 3px rgba(74,162,241,0.5);
+            }
+            .login-form button[type="submit"]:active {
+            }
+
+            .login-form .account-control input {
+                width:0px;
+                height:0px;
+            }
+            .login-form label.check {
+                position:absolute;
+                left:0;
+                top:50%;
+                margin:-8px 0;
+                display:inline-block;
+                width:16px;
+                height:16px;
+                line-height: 16px;
+                text-align:center;
+                border-radius:2px;
+                background-size:14px 14px,16px 16px;
+            }
+            .login-form .account-control input:checked + label.check:before {
+                content:attr(data-on);
+                font-family:loginform-icon;
+            }
+            @font-face {
+                font-family: 'loginform-icon';
+                src: url("../images/font/loginform-icon.eot");
+                src: url("../images/font/loginform-icon.eot?#iefix") format('embedded-opentype'),
+                url("../images/font/loginform-icon.woff") format('woff'),
+                url("../images/font/loginform-icon.ttf") format('truetype'),
+                url("../images/font/loginform-icon.svg#loginform-icon") format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+        </style>
     </head>
     <!-- Scripts -->
         <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
@@ -25,7 +188,7 @@
 			<section id="header" class="dark" >
 				<header>
 					<h1>Welcome to MyWeb</h1>
-                    <p>你好,你当前的ip为:${ip}.  <a href="${pageContext.request.contextPath}/images/psb.jpg">HTML5</a></p>
+                    <p>你好,你当前的ip为:${ip}.  <a href="http://120.77.169.190:82/psb.jpg">HTML5</a></p>
 				</header>
 				<footer>
 					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
@@ -39,22 +202,23 @@
 						<h2>Please input your username and password</h2>
                     <h4>我猜着你的名字刻在了墙上,你画了我的摸样对着弯月亮.</h4>
 						<center>
-						<form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" a>
-							<!--<div id="win" style="background: url('../picture/rain.gif') ">-->
-
-                                            <div id="mydiv" style="color:#F00" ></div>
-											<input id="txt_name" type="text" name="name" style="width:120px;height: 30px" onblur="checkName(this.value)" placeholder="name"/><br>
-                                            <input id="mymsg" type="hidden" value="" style="width:120px;height: 30px" />
-
-											<input id="txt_psd" type="password" name="password" autocomplete="off" style="width:120px;height: 30px" placeholder="password"/><br>
-
-                                            <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Login" onclick="login()" />
-											<%--<a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="login()">Login</a>--%>  <%--ajax重定向302错误--%>
-											<%--<input type="submit" value="login">--%>
-											<%--<a href="#second" onclick="changPage('div3','div2')">Regist</a>--%>
-                                            <input type="button" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')"/>
-
-						</form>
+                            <form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" class="login-form">
+                                <div id="mydiv" style="color:#F00" ></div>
+                                <div class="username">
+                                    <input id="txt_name" type="text" name="name" autocomplete="on" onblur="checkName(this.value)" placeholder="name"/><br>
+                                    <input id="mymsg" type="hidden" value="" style="width:120px;height: 30px" />
+                                    <span class="user-icon icon">u</span>
+                                </div>
+                                <div class="password">
+                                    <input id="txt_psd" type="password" name="password" autocomplete="off" placeholder="password"/><br>
+                                    <span class="password-icon icon">p</span>
+                                </div>
+                                <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Login" onclick="login()" />
+                                <%--<a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="login()">Login</a>--%>  <%--ajax重定向302错误--%>
+                                <%--<input type="submit" value="login">--%>
+                                <%--<a href="#second" onclick="changPage('div3','div2')">Regist</a>--%>
+                                <input type="button" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')"/>
+                            </form>
 						</center>
 				</header>
 			</section>
@@ -130,7 +294,7 @@
 		<!-- Footer-->
 			<section id="footer" >
 					<ul class="menu">
-						<li>&copy; It's My First Web.</li><li>Design: <a href="${pageContext.request.contextPath}/images/psb.jpg">HANG</a></li>
+						<li>&copy; It's My First Web.</li><li>Design: <a href="http://120.77.169.190:82/psb.jpg">HANG</a></li>
 					</ul>
 			</section>
 	</body>

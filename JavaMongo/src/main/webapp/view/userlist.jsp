@@ -158,6 +158,9 @@
     <div class="demo-tip icon-tip">&nbsp;</div>
     <h2>点击new user，新增一下你的信息再走哦！</h2>
 </div>
+    <div>
+        <a href="${pageContext.request.contextPath}/view/showpicture.jsp"><input type="button" value="picture"></a>
+    </div>
 
 <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true"
@@ -231,5 +234,6 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
        onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
 </div>
+<jsp:include page="foot.jsp" />
 </body>
 </html>
