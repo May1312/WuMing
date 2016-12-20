@@ -5,21 +5,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src="${pageContext.request.contextPath}/assets/js/ie/html5shiv.js"></script>
         <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
         <title>登陆</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie8.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie9.css" />
-        <script src="${pageContext.request.contextPath}/js/md5.js"></script>
+
+    </head>
         <style type="text/css">
             .login-form {
                 width:400px;
-                height:177px;
+                height:300px;
                 margin:70px auto 0;
                 padding-top:73px;
                 position:relative;
-                box-shadow:0 3px 3px rgba(21,62,78,0.8);
+                background-image:-*-linear-gradient(top,rgb(255,255,255),rgb(242,242,242));
+                box-shadow:0px 0px 2px 2px rgba(21,62,78,0.8);
             }
             .login-form:before {
                 content:"";
@@ -79,8 +80,8 @@
                 transition: all 300ms linear;
             }
             .login-form .username input, .login-form .password input {
-                height:100%;
-                width:calc(100% - 40px);
+                height:32px;
+                width:calc(218px);
                 padding-left:40px;
                 border-radius:2px;
                 border:1px solid;
@@ -182,6 +183,11 @@
         <script src="${pageContext.request.contextPath}/assets/js/skel.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/util.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+        <script src="${pageContext.request.contextPath}/js/md5.js"></script>
+        <script src="${pageContext.request.contextPath}/js/prefixfree.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/ie/html5shiv.js"></script>
+    <%--picture 压缩--%>
+    <script src="${pageContext.request.contextPath}/js/lrz/lrz.all.bundle.js"></script>
     <body>
 	<!-- Header -->
         <div id="div1">
@@ -196,18 +202,18 @@
 			</section>
          </div>
 		<!-- First -->
-    <div id="div2" >
+    <div id="div2">
 			<section id="first" class="main">
 				<header>
 						<h2>Please input your username and password</h2>
                     <h4>我猜着你的名字刻在了墙上,你画了我的摸样对着弯月亮.</h4>
 						<center>
                             <form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" class="login-form">
-                                <div id="mydiv" style="color:#F00" ></div>
+                                <div id="mydiv" style="color:#F00;width: 100%" hidden="hidden"></div>
                                 <div class="username">
-                                    <input id="txt_name" type="text" name="name" autocomplete="on" onblur="checkName(this.value)" placeholder="name"/><br>
-                                    <input id="mymsg" type="hidden" value="" style="width:120px;height: 30px" />
+                                    <input id="txt_name" type="text" name="name" autocomplete="on" onblur="checkName(this.value)" placeholder="name"/>
                                     <span class="user-icon icon">u</span>
+                                    <input id="mymsg" type="hidden" value="" />
                                 </div>
                                 <div class="password">
                                     <input id="txt_psd" type="password" name="password" autocomplete="off" placeholder="password"/><br>
@@ -240,22 +246,24 @@
                             <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
                                  closed="true" buttons="#dlg-buttons">
                                 <div class="ftitle">Pleasu Input Your Information</div>
-                                <form id="fm" novalidate>
+                                <form id="fm" novalidate enctype="multipart/form-data">
                                     <div id="mydiv2" style="color:#F00" ></div>
                                     <div class="fitem" hidden>
                                         <label>UserId:</label>
                                         <input name="userId" class="easyui-validatebox">
                                     </div>
-                                    <div class="fitem">
+                                    <div id="img_show" ><img src="" id="myImg" width="50px" height="50px"></div>
+                                    <%--add user picture--%>
+                                    <div style="margin-bottom:10px;">
                                         <input id="name" name="name" type="text" placeholder="Name" required="true" validType="equals['#pwd']" onblur="checkName(this.value)" />
                                     </div>
-                                    <div class="fitem">
+                                    <div style="margin-bottom:10px;">
                                         <input id="psd" name="password" placeholder="Password" type="password" required="true" />
                                     </div>
-                                    <div class="fitem">
+                                    <div style="margin-bottom:10px;">
                                         <input id="age" name="age" placeholder="Age" type="text" required="true"/>
                                     </div>
-                                    <div class="fitem">
+                                    <div style="margin-bottom:10px;">
                                         <label>Sex:</label>
                                         <input type="radio" name="sex" value="1"/>Male
                                         <input type="radio" name="sex" value="0" checked />Female<br>
@@ -264,16 +272,17 @@
                                         <label>RegistTime:</label>
                                         <input name="registTime" class="easyui-validatebox">
                                     </div>
+                                    <div style="margin-bottom:10px;box-shadow:0px 0px 2px 2px rgba(95, 97, 174, 0.8);width: 35%;background-color: #a8e776;color: #000000;">
+                                        <label for="file">上传用户头像</label>
+                                        <input type="file" id="file" style="position:absolute;clip:rect(0 0 0 0);" accept="image/*" onchange="showphoto(event)"/>
+                                           <%--<input id="file" type="file" accept="image/*" />--%>
+                                    </div>
+                                    <div style="margin-bottom:10px;">
+                                        <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Save" onclick="saveUser()"  />
+                                        <input  type="button" value="Cancel" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" />
+                                    </div>
                                 </form>
                                 </div>
-                            <div align="center">
-                            <footer>
-                                <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Save" onclick="saveUser()"  />
-                                <%--<a href="#" onclick="saveUser()">Save</a>--%>
-                                <%--<a href="#">Cancel</a>--%>
-                                <input  type="button" value="Cancel" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" />
-                            </footer>
-                            </div>
                         </section>
                     </div>
                     <div class="8u 12u(narrow)">
@@ -282,8 +291,6 @@
                             <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic02.jpg" alt="" /></a></div>
                             <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic03.jpg" alt="" /></a></div>
                             <div class="6u"><a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/pic04.jpg" alt="" /></a></div>
-                            <%--<div class="6u"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
-                            <div class="6u"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>--%>
                         </div>
                     </div>
                 </div>
@@ -304,11 +311,13 @@
             var name = $("#txt_name").val();
             var psd = $("#txt_psd").val();
             if(name==null || name == ""){
+                document.getElementById('mydiv').removeAttribute('hidden');
                 document.getElementById('mydiv').innerHTML = 'Please input your name！'
                /* alert("Please input your name");*/
                 return;
             }
             if(psd==null || psd == ""){
+                document.getElementById('mydiv').removeAttribute('hidden');
                 document.getElementById('mydiv').innerHTML = 'Please input your password！'
                 /*alert("Please input your password");*/
                 return;
@@ -388,19 +397,6 @@
                 })
             }
         }
-/*        function screenCtrl(objname) {
-            screenWidth = screen.availWidth; //屏幕宽度
-            screenHeight = screen.availHeight; //屏幕高度
-            $("#divId").css("height",screenHeight);
-            $("#divId").css("width",screenWidth);
-            $("img").css("height",screenHeight);
-            $("img").css("width",screenWidth);
-//				document.getElementById(objname).style.height = screenHeight + 'px';
-//				document.getElementById(objname).style.width = screenWidth + 'px';
-        }
-        $(document).ready(function() {
-            screenCtrl('div3');
-        });*/
         function changPage(first,Second){
             document.getElementById(first).removeAttribute('hidden');
             document.getElementById(Second).setAttribute('hidden','hidden');
@@ -454,6 +450,56 @@
                 "sex": sex
             };
             return json;
+        }
+        function showphoto(e){
+            // this.files[0] 是用户选择的文件
+            /*for (var i = 0; i < e.target.files.length; i++) {*/
+                var file = e.target.files.item(0);
+               /* if (!(/^image\/.*$/i.test(file.type))) {
+                    continue; //不是图片 就跳出这一次循环
+                }*/
+                //实例化FileReader API
+                var freader = new FileReader();
+                freader.readAsDataURL(file);
+                freader.onload = function(e) {
+                    $("#myImg").attr("src",e.target.result);
+                }
+           /* }*/
+                var a = 0;
+            var file2 = e.target.files.length;
+            var file = e.target.files.item(0);
+            var a = this.files[0];
+            lrz(this.files[0], {width: 1024})
+                    .then(function (rst) {
+                        // 把处理的好的图片给用户看看呗
+                        var img = new Image();
+                        img.src = rst.base64;
+
+                        img.onload = function () {
+                            document.body.appendChild(img);
+                        };
+
+                        return rst;
+                    })
+                    .then(function (rst) {
+                        // 这里该上传给后端啦
+                        // 伪代码：ajax(rst.base64)..
+
+                        return rst;
+                    })
+                    .then(function (rst) {
+                        // 如果您需要，一直then下去都行
+                        // 因为是Promise对象，可以很方便组织代码 \(^o^)/~
+                    })
+                    .catch(function (err) {
+                        // 万一出错了，这里可以捕捉到错误信息
+                        // 而且以上的then都不会执行
+
+                        alert(err);
+                    })
+                    .always(function () {
+                        // 不管是成功失败，这里都会执行
+                    });
         }
     </script>
 </html>
