@@ -474,16 +474,27 @@
                     .then(function (rst) {
                         // 把处理的好的图片给用户看看呗
                         freader.readAsDataURL(file);
+                        //压缩图片
+                        var src = rst.base64;
                         freader.onload = function(e) {
                          document.getElementById('img_show').removeAttribute('hidden');
-                         $("#myImg").attr("src",e.target.result);
+                         $("#myImg").attr("src",src);
                          }
 
                         return rst;
                     })
                     .then(function (rst) {
+                        var src = rst.base64;
                         // 这里该上传给后端啦
-                        // 伪代码：ajax(rst.base64)..
+                        $.ajax({
+                            type: 'post',
+                            date:{img:src},
+                            /*dataType:'jsonp',*/
+                            url: "http://localhost:81/photo/upload",
+                            success: function(result){
+                                alert("返回result")
+                            }
+                        })
 
                         return rst;
                     })
@@ -499,6 +510,7 @@
                     })
                     .always(function () {
                         // 不管是成功失败，这里都会执行
+                        alert("执行到这里");
                     });
         }
     </script>
