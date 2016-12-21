@@ -252,7 +252,7 @@
                                         <label>UserId:</label>
                                         <input name="userId" class="easyui-validatebox">
                                     </div>
-                                    <div id="img_show" ><img src="" id="myImg" width="50px" height="50px"></div>
+                                    <div id="img_show" hidden="hidden" style="margin-bottom:10px;" align="center"><h4>USER PHOTO:</h4><img src="" id="myImg" width="50px" height="50px"></div>
                                     <%--add user picture--%>
                                     <div style="margin-bottom:10px;">
                                         <input id="name" name="name" type="text" placeholder="Name" required="true" validType="equals['#pwd']" onblur="checkName(this.value)" />
@@ -460,24 +460,24 @@
                 }*/
                 //实例化FileReader API
                 var freader = new FileReader();
-                freader.readAsDataURL(file);
-                freader.onload = function(e) {
+                //freader.readAsDataURL(file);
+                /*freader.onload = function(e) {
+                    document.getElementById('img_show').removeAttribute('hidden');
                     $("#myImg").attr("src",e.target.result);
-                }
+                }*/
            /* }*/
                 var a = 0;
             var file2 = e.target.files.length;
             var file = e.target.files.item(0);
-            var a = this.files[0];
-            lrz(this.files[0], {width: 1024})
+            /*var a = this.files[0];*/
+            lrz(file, {width: 1024})
                     .then(function (rst) {
                         // 把处理的好的图片给用户看看呗
-                        var img = new Image();
-                        img.src = rst.base64;
-
-                        img.onload = function () {
-                            document.body.appendChild(img);
-                        };
+                        freader.readAsDataURL(file);
+                        freader.onload = function(e) {
+                         document.getElementById('img_show').removeAttribute('hidden');
+                         $("#myImg").attr("src",e.target.result);
+                         }
 
                         return rst;
                     })
