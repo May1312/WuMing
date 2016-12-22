@@ -536,7 +536,7 @@
                 /*$( "#dialog" ).dialog( "open" );*/
                 /*dlg.dialog('open');
                 $("#dialog").dialog({ modal: true, overlay: { opacity: 0.5, background: "black" } });*/
-                
+
                 $("#dialog").dialog('open');
             });
 
