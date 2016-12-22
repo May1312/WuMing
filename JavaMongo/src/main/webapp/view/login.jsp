@@ -7,6 +7,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
         <title>登陆</title>
+
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie8.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ie9.css" />
@@ -178,7 +180,11 @@
         </style>
     </head>
     <!-- Scripts -->
-        <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+      <%--<script src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>--%>
+
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <%--<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>--%>
+        <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery.scrolly.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/skel.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/util.js"></script>
@@ -186,8 +192,9 @@
         <script src="${pageContext.request.contextPath}/js/md5.js"></script>
         <script src="${pageContext.request.contextPath}/js/prefixfree.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/ie/html5shiv.js"></script>
-    <%--picture 压缩--%>
-    <script src="${pageContext.request.contextPath}/js/lrz/lrz.all.bundle.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+        <%--picture 压缩--%>
+        <script src="${pageContext.request.contextPath}/js/lrz/lrz.all.bundle.js"></script>
     <body>
 	<!-- Header -->
         <div id="div1">
@@ -246,44 +253,51 @@
                             <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
                                  closed="true" buttons="#dlg-buttons">
                                 <div class="ftitle">Pleasu Input Your Information</div>
-                                <form id="fm" novalidate enctype="multipart/form-data">
-                                    <div id="mydiv2" style="color:#F00" ></div>
-                                    <div class="fitem" hidden>
-                                        <label>UserId:</label>
-                                        <input name="userId" class="easyui-validatebox">
-                                    </div>
-                                    <div id="img_show" hidden="hidden" style="margin-bottom:10px;" align="center"><h4>USER PHOTO:</h4><img src="" id="myImg" width="50px" height="50px"></div>
-                                    <%--add user picture--%>
-                                    <div style="margin-bottom:10px;">
-                                        <input id="name" name="name" type="text" placeholder="Name" required="true" validType="equals['#pwd']" onblur="checkName(this.value)" />
-                                    </div>
-                                    <div style="margin-bottom:10px;">
-                                        <input id="psd" name="password" placeholder="Password" type="password" required="true" />
-                                    </div>
-                                    <div style="margin-bottom:10px;">
-                                        <input id="age" name="age" placeholder="Age" type="text" required="true"/>
-                                    </div>
-                                    <div style="margin-bottom:10px;">
-                                        <label>Sex:</label>
-                                        <input type="radio" name="sex" value="1"/>Male
-                                        <input type="radio" name="sex" value="0" checked />Female<br>
-                                    </div>
-                                    <div class="fitem" hidden>
-                                        <label>RegistTime:</label>
-                                        <input name="registTime" class="easyui-validatebox">
-                                    </div>
-                                    <div style="margin-bottom:10px;box-shadow:0px 0px 2px 2px rgba(95, 97, 174, 0.8);width: 35%;background-color: #a8e776;color: #000000;">
-                                        <label for="file">上传用户头像</label>
-                                        <input type="file" id="file" style="position:absolute;clip:rect(0 0 0 0);" accept="image/*" onchange="showphoto(event)"/>
-                                           <%--<input id="file" type="file" accept="image/*" />--%>
-                                    </div>
-                                    <div style="margin-bottom:10px;">
-                                        <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Save" onclick="saveUser()"  />
-                                        <input  type="button" value="Cancel" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" />
-                                    </div>
-                                </form>
+                                    <form id="fm" novalidate enctype="multipart/form-data">
+                                        <div id="mydiv2" style="color:#F00" ></div>
+                                        <div class="fitem" hidden>
+                                            <label>UserId:</label>
+                                            <input name="userId" class="easyui-validatebox">
+                                        </div>
+                                        <div id="img_show" hidden="hidden" style="margin-bottom:10px;" align="center"><h4>USER PHOTO:</h4><img src="" id="myImg" width="50px" height="50px"></div>
+                                        <%--add user picture--%>
+                                        <div style="margin-bottom:10px;">
+                                            <input id="name" name="name" type="text" placeholder="Name" required="true" validType="equals['#pwd']" onblur="checkName(this.value)" />
+                                        </div>
+                                        <div style="margin-bottom:10px;">
+                                            <input id="psd" name="password" placeholder="Password" type="password" required="true" />
+                                        </div>
+                                        <div style="margin-bottom:10px;">
+                                            <input id="age" name="age" placeholder="Age" type="text" required="true"/>
+                                        </div>
+                                        <div style="margin-bottom:10px;">
+                                            <label>Sex:</label>
+                                            <input type="radio" name="sex" value="1"/>Male
+                                            <input type="radio" name="sex" value="0" checked />Female<br>
+                                        </div>
+                                        <div class="fitem" hidden>
+                                            <label>RegistTime:</label>
+                                            <input name="registTime" class="easyui-validatebox">
+                                        </div>
+                                        <div style="margin-bottom:10px;box-shadow:0px 0px 2px 2px rgba(95, 97, 174, 0.8);width: 35%;background-color: #a8e776;color: #000000;">
+                                            <label for="btnLogin">上传用户头像</label>
+                                            <input type="button" style="position:absolute;clip:rect(0 0 0 0);" id="btnLogin" name="btnLogin" />
+                                        </div>
+                                        <div style="margin-bottom:10px;">
+                                            <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Save" onclick="saveUser()"  />
+                                            <input  type="button" value="Cancel" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" />
+                                        </div>
+                                    </form>
+                                <%--弹窗图片上传表单--%>
+                                <div id="dialog" title="UPLOAD">
+                                    <form name="upload" method="post" enctype="multipart/form-data" action="http://127.0.0.1:81/photo/upload" style="height: 200px;width: 1024px">
+                                        <input type="file" id="file" accept="image/*" onchange="showphoto(event)"/>
+                                        <%--<input id="file" type="file" accept="image/*" />--%>
+                                    </form>
+                                </div>
                                 </div>
                         </section>
+
                     </div>
                     <div class="8u 12u(narrow)">
                         <div class="row">
@@ -489,8 +503,9 @@
                         $.ajax({
                             type: 'post',
                             date:{img:src},
-                            /*dataType:'jsonp',*/
-                            url: "http://localhost:81/photo/upload",
+                            dataType:'jsonp',
+                            jsonp:'callback',
+                            url: "http://localhost:81/photo/upload2",
                             success: function(result){
                                 alert("返回result")
                             }
@@ -513,5 +528,22 @@
                         alert("执行到这里");
                     });
         }
+        $(function(){
+           var dlg = $("#dialog").dialog({resizable: true,
+               autoOpen:false,
+               modal: true,});
+            $("input[name='btnLogin']").click(function(){
+                /*$( "#dialog" ).dialog( "open" );*/
+                /*dlg.dialog('open');
+                $("#dialog").dialog({ modal: true, overlay: { opacity: 0.5, background: "black" } });*/
+                
+                $("#dialog").dialog('open');
+            });
+
+            $("input[name='tj']").click(function(){
+                $( "#dialog" ).dialog( "close" );
+                window.location.reload();
+            });
+        });
     </script>
 </html>

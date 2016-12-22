@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/photo")
 public class PicController {
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    @RequestMapping(value = "/upload",method = {RequestMethod.POST,RequestMethod.GET})
     public void uploadphoto(@RequestParam("img") MultipartFile upload){
         System.out.println("--------------");
         System.out.println(upload);
