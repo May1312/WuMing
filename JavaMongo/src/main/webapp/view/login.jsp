@@ -280,8 +280,9 @@
                                             <input name="registTime" class="easyui-validatebox">
                                         </div>
                                         <div style="margin-bottom:10px;box-shadow:0px 0px 2px 2px rgba(95, 97, 174, 0.8);width: 35%;background-color: #a8e776;color: #000000;">
-                                            <label for="btnLogin">上传用户头像</label>
-                                            <input type="button" style="position:absolute;clip:rect(0 0 0 0);" id="btnLogin" name="btnLogin" />
+                                            <label for="btnLogin2">上传用户头像</label>
+                                            <%--弹框form表单的方式 <input type="button" style="position:absolute;clip:rect(0 0 0 0);" id="btnLogin" name="btnLogin" />--%>
+                                            <input type="button" style="position:absolute;clip:rect(0 0 0 0);" id="btnLogin2" name="btnLogin2" />
                                         </div>
                                         <div style="margin-bottom:10px;">
                                             <input  type="button" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Save" onclick="saveUser()"  />
@@ -289,15 +290,29 @@
                                         </div>
                                     </form>
                                 <%--弹窗图片上传表单--%>
-                                <div id="dialog" title="UPLOAD">
-                                    <form name="upload" method="post" enctype="multipart/form-data" action="http://127.0.0.1:81/photo/upload" style="height: 200px;width: 1024px">
-                                        <input type="file" id="file" accept="image/*" onchange="showphoto(event)"/>
+                                <div id="dialog" title="UPLOAD" style="height: 200px;width: 1024px">
+                                    <div id="pdiv" hidden="hidden" align="center" style="margin-bottom:10px;"><img src="" id="myImg2" width="50px" height="50px"></div>
+                                    <form name="upload" method="post" enctype="multipart/form-data" action="http://127.0.0.1:81/photo/upload" >
+                                        <div style="margin-bottom:10px;">
+                                            <input type="file" id="file" accept="image/*" name="myfile" onchange="showphoto2(event)" required />
+                                        </div>
+                                        <div style="margin-bottom:10px;">
+                                            <input type="submit" style="width:50px;height: 30px;" value="提交" />
+                                        </div>
                                         <%--<input id="file" type="file" accept="image/*" />--%>
+                                    </form>
+                                </div>
+                                <%--弹窗ajax图片上传--%>
+                                <div id="dialog2" title="UPLOAD" style="height: 200px;width: 1024px">
+                                    <div id="ajaxdiv" hidden="hidden" align="center" style="margin-bottom:10px;"><img src="" id="myImg3" width="50px" height="50px"></div>
+                                    <form name="upload" method="post" enctype="multipart/form-data" action="http://127.0.0.1:81/photo/upload" >
+                                        <div style="margin-bottom:10px;">
+                                            <input type="file" id="ajaxfile" accept="image/*" name="myfile" onchange="showphoto3(event)" required />
+                                        </div>
                                     </form>
                                 </div>
                                 </div>
                         </section>
-
                     </div>
                     <div class="8u 12u(narrow)">
                         <div class="row">
@@ -497,7 +512,7 @@
 
                         return rst;
                     })
-                    .then(function (rst) {
+                    /*.then(function (rst) {
                         var src = rst.base64;
                         // 这里该上传给后端啦
                         $.ajax({
@@ -516,7 +531,7 @@
                     .then(function (rst) {
                         // 如果您需要，一直then下去都行
                         // 因为是Promise对象，可以很方便组织代码 \(^o^)/~
-                    })
+                    })*/
                     .catch(function (err) {
                         // 万一出错了，这里可以捕捉到错误信息
                         // 而且以上的then都不会执行
@@ -525,7 +540,107 @@
                     })
                     .always(function () {
                         // 不管是成功失败，这里都会执行
-                        alert("执行到这里");
+
+                    });
+        }
+        function showphoto2(e){
+            var freader = new FileReader();
+            var file = e.target.files.item(0);
+            lrz(file, {width: 1024})
+                    .then(function (rst) {
+                        // 把处理的好的图片给用户看看呗
+                        freader.readAsDataURL(file);
+                        //压缩图片
+                        var src = rst.base64;
+                        freader.onload = function(e) {
+                            document.getElementById('pdiv').removeAttribute('hidden');
+                            $("#myImg2").attr("src",src);
+                        }
+
+                        return rst;
+                    })
+                    /*.then(function (rst) {
+                        var src = rst.base64;
+                        // 这里该上传给后端啦
+                        alert("执行ajax传递");
+                        $.ajax({
+                            type: 'post',
+                            date:{img:src},
+                            dataType:'jsonp',
+                            jsonp:'callback',
+                            url: "http://localhost:81/photo/upload",
+                            success: function(result){
+                                alert("返回result")
+                            }
+                        })
+
+                        return rst;
+                    })
+                    .then(function (rst) {
+                        // 如果您需要，一直then下去都行
+                        // 因为是Promise对象，可以很方便组织代码 \(^o^)/~
+                    })*/
+                    .catch(function (err) {
+                        // 万一出错了，这里可以捕捉到错误信息
+                        // 而且以上的then都不会执行
+
+                        alert(err);
+                    })
+                    .always(function () {
+                        // 不管是成功失败，这里都会执行
+
+                    });
+        }
+        function showphoto3(e){
+            var freader = new FileReader();
+            var file = e.target.files.item(0);
+            lrz(file, {width: 1024})
+                    .then(function (rst) {
+                        // 把处理的好的图片给用户看看呗
+                        freader.readAsDataURL(file);
+                        //压缩图片
+                        var src = rst.base64;
+                        freader.onload = function(e) {
+                            document.getElementById('ajaxdiv').removeAttribute('hidden');
+                            $("#myImg3").attr("src",src);
+                        }
+
+                        return rst;
+                    })
+                    .then(function (rst) {
+                     var src2 = rst.base64;
+                        var img2;
+                     // 这里该上传给后端啦
+                        var data = {
+                            "photoUrl":"yh"
+                        };
+                     $.ajax({
+                     contentType: 'application/json',
+                     type: 'post',
+                     date:{"photoUrl":"sssssssssss"},
+                     dataType:'jsonp',
+                     jsonp:'callback',
+                     url: "http://localhost:81/photo/ajaxupload",
+                     success: function(result){
+                         alert("返回result")
+                     }
+                     })
+
+                     return rst;
+                     })
+                     .then(function (rst) {
+                     // 如果您需要，一直then下去都行
+                     // 因为是Promise对象，可以很方便组织代码 \(^o^)/~
+                     })
+                    .catch(function (err) {
+                        // 万一出错了，这里可以捕捉到错误信息
+                        // 而且以上的then都不会执行
+
+                        alert(err);
+                    })
+                    .always(function () {
+                        // 不管是成功失败，这里都会执行
+
                     });
         }
         $(function(){
@@ -541,6 +656,18 @@
             });
 
             $("input[name='tj']").click(function(){
+                $( "#dialog" ).dialog( "close" );
+                window.location.reload();
+            });
+
+            var dlg = $("#dialog2").dialog({resizable: true,
+                autoOpen:false,
+                modal: true,});
+            $("input[name='btnLogin2']").click(function(){
+                $("#dialog2").dialog('open');
+            });
+
+            $("input[name='tj2']").click(function(){
                 $( "#dialog" ).dialog( "close" );
                 window.location.reload();
             });

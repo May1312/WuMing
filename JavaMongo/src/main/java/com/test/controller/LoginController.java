@@ -49,4 +49,8 @@ public class LoginController {
         map.put("status", "200");
         return ResponseEntity.ok(map);
     }
+    @RequestMapping(value = "/ajaxupload",method = {RequestMethod.GET,RequestMethod.POST})
+    public void ajaxupload(@RequestBody User user, HttpServletRequest request){
+        System.out.println(user.getName());
+    }
 }
