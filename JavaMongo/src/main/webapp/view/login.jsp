@@ -184,6 +184,8 @@
 
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <%--<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>--%>
+        <script src="${pageContext.request.contextPath}/js/jquery-1.9.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.jsonp.js"></script>
         <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery.scrolly.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/skel.min.js"></script>
@@ -559,27 +561,6 @@
 
                         return rst;
                     })
-                    /*.then(function (rst) {
-                        var src = rst.base64;
-                        // 这里该上传给后端啦
-                        alert("执行ajax传递");
-                        $.ajax({
-                            type: 'post',
-                            date:{img:src},
-                            dataType:'jsonp',
-                            jsonp:'callback',
-                            url: "http://localhost:81/photo/upload",
-                            success: function(result){
-                                alert("返回result")
-                            }
-                        })
-
-                        return rst;
-                    })
-                    .then(function (rst) {
-                        // 如果您需要，一直then下去都行
-                        // 因为是Promise对象，可以很方便组织代码 \(^o^)/~
-                    })*/
                     .catch(function (err) {
                         // 万一出错了，这里可以捕捉到错误信息
                         // 而且以上的then都不会执行
@@ -594,55 +575,35 @@
         function showphoto3(e){
             var freader = new FileReader();
             var file = e.target.files.item(0);
-            lrz(file, {width: 1024})
+            lrz(file,{width:300})
                     .then(function (rst) {
-                        // 把处理的好的图片给用户看看呗
-                        freader.readAsDataURL(file);
-                        //压缩图片
-                        var src = rst.base64;
-                        freader.onload = function(e) {
-                            document.getElementById('ajaxdiv').removeAttribute('hidden');
-                            $("#myImg3").attr("src",src);
-                        }
-
-                        return rst;
-                    })
-                    .then(function (rst) {
-                     var src2 = rst.base64;
-                        var img2;
-                     // 这里该上传给后端啦
-                        var data = {
-                            "photoUrl":"yh"
+                        var submitData={
+                            img:rst.base64,
+                            name:rst.origin.name,
+                            fileLength:rst.base64.length
                         };
-                     $.ajax({
-                     contentType: 'application/json',
-                     type: 'post',
-                     date:{"photoUrl":"sssssssssss"},
-                     dataType:'jsonp',
-                     jsonp:'callback',
-                     url: "http://localhost:81/photo/ajaxupload",
-                     success: function(result){
-                         alert("返回result")
-                     }
-                     })
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost:81/photo/ajaxupload",
+                            data: submitData,
+                            dataType:"jsonp",
+                            jsonpCallback:"hang",
+                            beforeSend: function(XMLHttpRequest){
+                                //showLoader();
+                            },
+                            success: function(data){
 
-                     return rst;
-                     })
-                     .then(function (rst) {
-                     // 如果您需要，一直then下去都行
-                     // 因为是Promise对象，可以很方便组织代码 \(^o^)/~
-                     })
-                    .catch(function (err) {
-                        // 万一出错了，这里可以捕捉到错误信息
-                        // 而且以上的then都不会执行
+                                if ("1" == data.error) {
+                                    alert(data.message);
+                                    return false;
+                                }else{
+                                    alert(data.thumbnail);
 
-                        alert(err);
-                    })
-                    .always(function () {
-                        // 不管是成功失败，这里都会执行
-
-                    });
-        }
+                                    return false;
+                                }
+                            }
+                        })
+                    })}
         $(function(){
            var dlg = $("#dialog").dialog({resizable: true,
                autoOpen:false,

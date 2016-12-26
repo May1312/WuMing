@@ -3,8 +3,8 @@ package com.test.controller;
 import com.test.bean.PhotoBean;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,9 +93,20 @@ public class PicController {
      * ajax upload 压缩之后的图片
      */
     @RequestMapping(value = "/ajaxupload",method = {RequestMethod.GET,RequestMethod.POST})
-    public void ajaxupload(@RequestBody PhotoBean pb, HttpServletRequest request){
-    /*public void ajaxupload(HttpServletRequest request){*/
-        System.out.println(pb.getPhotoUrl());
+    /*public void ajaxupload(@RequestBody PhotoBean pb, HttpServletRequest request){*/
+    public void ajaxupload(HttpServletRequest request,HttpServletRequest response){
+
+        String callback = request.getParameter("callback");
+        String img = request.getParameter("img");
+        //MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+        System.out.println(callback);
+        System.out.println(img);
+    }
+    @RequestMapping(value = "/ajax",method = {RequestMethod.GET,RequestMethod.POST})
+    public ResponseEntity ajax(HttpServletRequest request,HttpServletRequest response){
+        System.out.println(request.getParameter("img"));
+        String result = "hang" + "({\"abc\":123})";
+        return ResponseEntity.ok(result);
     }
 }
 

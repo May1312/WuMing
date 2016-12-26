@@ -50,7 +50,8 @@ public class LoginController {
         return ResponseEntity.ok(map);
     }
     @RequestMapping(value = "/ajaxupload",method = {RequestMethod.GET,RequestMethod.POST})
-    public void ajaxupload(@RequestBody User user, HttpServletRequest request){
-        System.out.println(user.getName());
+    public void ajaxupload(HttpServletRequest request){
+        //post 请求不跨域上传压缩文件成功
+        System.out.println(request.getParameter("img").toString());
     }
 }
