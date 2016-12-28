@@ -5,8 +5,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
-        <title>登陆</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/images/trip.png" type="image/x-icon">
+        <title>十年</title>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />

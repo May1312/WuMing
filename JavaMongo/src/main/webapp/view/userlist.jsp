@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="jquery,ui,easy,easyui,web">
     <meta name="description" content="easyui help you build your web page easily!">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/trip.png" type="image/x-icon">
     <title>welcome</title>
     <link rel="stylesheet" type="text/css" href="../css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../css/icon.css">
