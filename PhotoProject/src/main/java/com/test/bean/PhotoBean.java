@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class PhotoBean implements Serializable {
     private String photoUrl;
     private String userId;
+    private String img;
 
     public String getPhotoUrl() {
         return photoUrl;
@@ -23,5 +24,13 @@ public class PhotoBean implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

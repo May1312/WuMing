@@ -8,6 +8,7 @@
     <modules>
         <module>../JavaMongo</module>
 		<module>../PhotoProject</module>
+		<module>../HttpClientUtil</module>
     </modules>
     <dependencies>
         <dependency>

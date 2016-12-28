@@ -3,18 +3,18 @@ package com.test.controller;
 import com.test.bean.PhotoBean;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -30,14 +30,62 @@ public class PicController {
     private static String PHOTOPATH = "/tmp/picture";
     private static String PHOTOURL = "http://120.77.169.190/";
 
+
+    @RequestMapping(value = "/upload",method = {RequestMethod.POST})
+    public ResponseEntity<Void> upload(HttpServletRequest request, HttpServletResponse response){
+       // @RequestBody PhotoBean pb2,
+        String photoUrl = request.getParameter("img");
+        String userid = request.getParameter("userid");
+        //data:image/jpeg;base64,/9j/4    切分去掉base标志
+        int i = StringUtils.indexOf(photoUrl, ",");
+        if(i<0 || StringUtils.isBlank(userid)){
+            return ResponseEntity.ok(null);
+        }
+        //System.out.println(",出现的角标位置为："+i);
+        photoUrl = StringUtils.substring(photoUrl,i+1);
+        System.out.println(photoUrl);
+        String photoname = request.getParameter("photoname");
+       // System.out.println(pb2.getPhotoUrl());
+        File file2 = new File(photoUrl);
+        logger.info("执行上传图片方法");
+
+        PhotoBean pb = new PhotoBean();
+        //获取文件
+        //设置上传路径
+        String fileFolder =  PHOTOPATH+ File.separator;
+        //自定义文件路径
+        String filePath = fileFolder+ Calendar.getInstance().get(Calendar.YEAR) + File.separator + (Calendar.getInstance().get(Calendar.MONTH)+1)+File.separator+Calendar.getInstance().get(Calendar.DATE);
+        //判断该目录结构是否存在
+        File file = new File(filePath);
+        if(!file.isDirectory()){
+            file.mkdirs();
+        }
+        //以当前的时间戳重命名文件
+        filePath = filePath+File.separator+(System.currentTimeMillis())+"."+StringUtils.substringAfterLast(photoname,".");
+        //创建文件
+        File file1 = new File(filePath);
+        try {
+            boolean flag = string2Image(photoUrl, filePath);
+            //upload.transferTo(file1);
+            System.out.println("是否生成图片:"+flag);
+            //设置图片的url
+            pb.setPhotoUrl(filePath);
+            pb.setUserId(userid);
+            System.out.println(userid);
+            return ResponseEntity.ok(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
     /**
      * form 表单的提交方式
      * @param upload
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/upload",method = {RequestMethod.POST,RequestMethod.GET})
-    public void uploadphoto(@RequestParam("myfile") MultipartFile upload, HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "/upload2",method = {RequestMethod.POST,RequestMethod.GET})
+    public void uploadphoto2(@RequestParam("myfile") MultipartFile upload, HttpServletRequest request, HttpServletResponse response){
         logger.info("执行上传图片方法");
         //校验图片类型
         String suffix = upload.getOriginalFilename();
@@ -84,6 +132,12 @@ public class PicController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 计算文件大小
+     * @param num
+     * @return
+     */
     public static float division(float num) {
         float m = 1024 * 1024;
         float result = num / m;
@@ -108,5 +162,33 @@ public class PicController {
         String result = "hang" + "({\"abc\":123})";
         return ResponseEntity.ok(result);
     }
+    /**
+     * 通过BASE64Decoder解码，并生成图片
+     * @param imgStr 解码后的string
+     */
+    public boolean string2Image(String imgStr, String imgFilePath) {
+        // 对字节数组字符串进行Base64解码并生成图片
+        if (imgStr == null)
+            return false;
+        try {
+            // Base64解码
+            byte[] b = new BASE64Decoder().decodeBuffer(imgStr);
+            for (int i = 0; i < b.length; ++i) {
+                if (b[i] < 0) {
+                    // 调整异常数据
+                    b[i] += 256;
+                }
+            }
+            // 生成Jpeg图片
+            OutputStream out = new FileOutputStream(imgFilePath);
+            out.write(b);
+            out.flush();
+            out.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }
 

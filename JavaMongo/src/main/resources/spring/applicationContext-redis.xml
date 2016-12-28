@@ -8,13 +8,14 @@
 
 	<!-- 提供该PropertyPlaceholderConfigurer bean支持把properties文件中的信息读取到XML配置文件的表达式中 -->
 	<!-- 从Spring2.5开始引入命名空间配置加载properties文件到XML -->
-	<context:property-placeholder
-			location="classpath*:/redis.properties" />
+<!--	<context:property-placeholder
+			location="classpath*:/redis.properties" />-->
 
 	<!-- 连接池配置信息 -->
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<!-- 设置最大连接数 -->
 		<property name="maxTotal" value="${redis.maxTotal}" />
+		<!--<property name="maxTotal" value="50" />-->
 	</bean>
 
 	<!-- 定义集群连接池 -->
@@ -26,8 +27,10 @@
 			<list>
 				<bean class="redis.clients.jedis.JedisShardInfo">
 					<constructor-arg index="0" value="${redis.host1}" />
+					<!--<constructor-arg index="0" value="120.77.169.190" />-->
 					<!-- 可以通过配置type属性指定数据的类型，以区分多个构造器 -->
 					<constructor-arg index="1" value="${redis.port1}" />
+					<!--<constructor-arg index="1" value="6379" />-->
 				</bean>
 			</list>
 		</constructor-arg>

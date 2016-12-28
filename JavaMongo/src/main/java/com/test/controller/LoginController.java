@@ -1,7 +1,11 @@
 package com.test.controller;
 
+import com.test.bean.HttpResult;
 import com.test.bean.User;
+import com.test.service.HttpClientUtils;
 import com.test.service.MongoService;
+import com.test.util.UserThreadLocal;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,5 +57,25 @@ public class LoginController {
     public void ajaxupload(HttpServletRequest request){
         //post 请求不跨域上传压缩文件成功
         System.out.println(request.getParameter("img").toString());
+    }
+    /**
+     * 上传用户头像
+     */
+    @Autowired
+    private HttpClientUtils httpclient;
+    private static String PHOTO_URL = "http://localhost:81/photo/upload";
+    @RequestMapping(value="/photo",method = {RequestMethod.GET,RequestMethod.POST})
+    public ResponseEntity photo(HttpServletRequest request){
+        String photo = request.getParameter("img").toString();
+        String photoname = request.getParameter("photoname");
+        Map<String,Object> map = new HashMap<String, Object>();
+        if(StringUtils.isNotBlank(photo)){
+            map.put("img",photo);
+            map.put("photoname",photoname);
+            map.put("userid",UserThreadLocal.get().getUserId());
+            HttpResult httpResult = httpclient.doPost(PHOTO_URL, map);
+            System.out.println(httpResult);
+        }
+        return null;
     }
 }

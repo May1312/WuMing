@@ -23,6 +23,27 @@ xmlns:aop="http://www.springframework.org/schema/aop"
     <!-- proxy-target-class默认"false",更改为"ture"使用CGLib动态代理 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />	
 
-    <import resource="applicationContext-redis.xml"/>
+    <!--  引入一个文件可以，多个文件无法获取参数-->
+    <!--<import resource="applicationContext-redis.xml"/>-->
+    <!--<import resource="applicationContext-http.xml"/>-->
    <!-- <import resource="spring-mongo.xml"/>-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!--配置资源文件-->
+    <property name="locations">
+        <list>
+            <value>classpath:redis.properties</value>
+            <value>classpath:http.properties</value>
+        </list>
+    </property>
+    <property name="ignoreUnresolvablePlaceholders" value="true" />
+</bean>
+   <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        &lt;!&ndash;配置资源文件&ndash;&gt;
+        <property name="locations">
+            <list>
+                <value>classpath:http.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>-->
  </beans>

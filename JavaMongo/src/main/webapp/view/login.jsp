@@ -579,15 +579,15 @@
                     .then(function (rst) {
                         var submitData={
                             img:rst.base64,
-                            name:rst.origin.name,
+                            photoname:rst.origin.name,
                             fileLength:rst.base64.length
                         };
                         $.ajax({
                             type: "POST",
-                            url: "http://localhost:81/photo/ajaxupload",
+                            url: "http://localhost/login/photo",
                             data: submitData,
-                            dataType:"jsonp",
-                            jsonpCallback:"hang",
+                            /*dataType:"jsonp",
+                            jsonpCallback:"hang",*/
                             beforeSend: function(XMLHttpRequest){
                                 //showLoader();
                             },

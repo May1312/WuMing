@@ -31,6 +31,9 @@ public class MongoController {
 	@Autowired
 	private UserService userService;
 
+	/*@Autowired
+	private HttpClientUtils httpclient;*/
+
 	/*@RequestMapping(value="/receive",method=RequestMethod.POST)
 	public void receiveDate(HttpServletRequest request){
 		System.out.println(request.getParameter("name")+request.getParameter("age")+request.getParameter("sex"));
@@ -126,4 +129,21 @@ public class MongoController {
 		map.put("status",500);
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
 	}
+	/**
+	 * 上传用户头像
+	 */
+	/*private static String PHOTO_URL = "http://120.0.0.1:81/photo/upload";
+	@RequestMapping(value="/photo",method = RequestMethod.GET)
+	public ResponseEntity photo(HttpServletRequest request, HttpServletResponse response){
+		String photo = request.getParameter("img").toString();
+		Map<String,Object> map = new HashMap<String, Object>();
+		if(StringUtils.isNotBlank(photo)){
+			map.put("photo",photo);
+			String s = httpclient.doGet(PHOTO_URL, map);
+			System.out.println(s);
+		}
+
+
+		return null;
+	}*/
 }
