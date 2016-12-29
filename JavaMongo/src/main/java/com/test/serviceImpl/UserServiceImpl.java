@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
                 UserThreadLocal.set(user2);
                 //
                 String ticket = user.getName();
-                String s = JSON.toJSONString(user);
+                String s = JSON.toJSONString(user2);
                 redisService.set(ticket, s, 60 * 60);
                 return ticket;
             } else {

@@ -1,8 +1,10 @@
 package com.test.controller;
 
 import com.test.bean.PhotoBean;
+import com.test.service.PicService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ public class PicController {
     private static String PHOTOPATH = "/tmp/picture";
     private static String PHOTOURL = "http://120.77.169.190/";
 
+    @Autowired
+    private PicService picService;
 
     @RequestMapping(value = "/upload",method = {RequestMethod.POST})
     public ResponseEntity<Void> upload(HttpServletRequest request, HttpServletResponse response){
@@ -72,6 +76,8 @@ public class PicController {
             pb.setPhotoUrl(filePath);
             pb.setUserId(userid);
             System.out.println(userid);
+            //保存图片信息到mysql
+            int num = picService.savePhotoInfo(pb);
             return ResponseEntity.ok(null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,6 +195,9 @@ public class PicController {
             return false;
         }
     }
-
+    @RequestMapping("/run")
+    public void run(){
+        picService.run(1);
+    }
 }
 

@@ -1,10 +1,13 @@
 package com.test.controller;
 
+import com.test.bean.HttpResult;
 import com.test.bean.User;
 import com.test.bean.pageBean;
+import com.test.service.HttpClientUtils;
 import com.test.service.MongoService;
 import com.test.service.UserService;
 import com.test.util.CookieUtil;
+import com.test.util.UserThreadLocal;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,18 +135,21 @@ public class MongoController {
 	/**
 	 * 上传用户头像
 	 */
-	/*private static String PHOTO_URL = "http://120.0.0.1:81/photo/upload";
-	@RequestMapping(value="/photo",method = RequestMethod.GET)
-	public ResponseEntity photo(HttpServletRequest request, HttpServletResponse response){
+	@Autowired
+	private HttpClientUtils httpclient;
+	private static String PHOTO_URL = "http://localhost:81/photo/upload";
+	@RequestMapping(value="/photo",method = {RequestMethod.GET,RequestMethod.POST})
+	public ResponseEntity photo(HttpServletRequest request){
 		String photo = request.getParameter("img").toString();
+		String photoname = request.getParameter("photoname");
 		Map<String,Object> map = new HashMap<String, Object>();
 		if(StringUtils.isNotBlank(photo)){
-			map.put("photo",photo);
-			String s = httpclient.doGet(PHOTO_URL, map);
-			System.out.println(s);
+			map.put("img",photo);
+			map.put("photoname",photoname);
+			map.put("userid", UserThreadLocal.get().getUserId());
+			HttpResult httpResult = httpclient.doPost(PHOTO_URL, map);
+			System.out.println(httpResult);
 		}
-
-
 		return null;
-	}*/
+	}
 }

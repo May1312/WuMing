@@ -39,8 +39,10 @@
             width: 80px;
         }
     </style>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <%--picture 压缩--%>
+    <script src="${pageContext.request.contextPath}/js/lrz/lrz.all.bundle.js"></script>
     <script type="text/javascript">
         var url;
         function newUser() {
@@ -150,16 +152,79 @@
                 })
             }
         }
+        $(function(){
+            var dlg = $("#dialog").dialog({
+               /* resizable: true,
+                autoOpen: false,
+                modal: true,*/
+                title: '设置头像',
+                width: 400,
+                height: 200,
+                closed: true,
+                cache: false,
+                modal: true
+
+            });
+            $("input[name='dialoginput']").click(function () {
+                $("#dialog").dialog('open');
+            });
+        });
+        function showphoto(e){
+            var freader = new FileReader();
+            var file = e.target.files.item(0);
+
+            lrz(file,{width:300})
+                    .then(function (rst) {
+                        var submitData={
+                            img:rst.base64,
+                            photoname:rst.origin.name,
+                            fileLength:rst.base64.length
+                        };
+                        //回显图片
+                        document.getElementById('ajaxdiv').removeAttribute('hidden');
+                        document.getElementById('myImg').setAttribute('src',submitData.img);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost/mongo/photo",
+                            data: submitData,
+                            /*dataType:"jsonp",
+                             jsonpCallback:"hang",*/
+                            beforeSend: function(XMLHttpRequest){
+                                //showLoader();
+                            },
+                            success: function(data){
+
+                                if (date.state==200) {
+                                    alert(data.message);
+                                }else{
+                                    alert(data.thumbnail);
+
+                                    return false;
+                                }
+                            }
+                        })
+                    })}
     </script>
 </head>
 <body>
 <h2>Test CRUD Databash</h2>
-<div class="demo-info" style="margin-bottom:10px">
-    <div class="demo-tip icon-tip">&nbsp;</div>
-    <h2>点击new user，新增一下你的信息再走哦！</h2>
-</div>
+    <div class="demo-info" style="margin-bottom:10px">
+        <div class="demo-tip icon-tip">&nbsp;</div>
+        <h2>点击new user</h2>
+    </div>
     <div>
-        <a href="${pageContext.request.contextPath}/view/showpicture.jsp"><input type="button" value="picture"></a>
+        <input type="button" value="设置头像" id="showdialog" name="dialoginput">
+    </div>
+    <%--弹窗ajax图片上传--%>
+    <div id="dialog" title="UPLOAD" style="height: 200px;width: 1024px">
+        <form name="upload" method="post" enctype="multipart/form-data" action="http://127.0.0.1:81/photo/upload" >
+            <div id="ajaxdiv" hidden="hidden" align="center" style="margin-bottom:10px;">
+                <img src="" id="myImg" width="50px" height="50px"></div>
+            <div style="margin-bottom:10px;">
+                <input type="file" id="ajaxfile" accept="image/*" name="myfile" onchange="showphoto(event)" required />
+            </div>
+        </form>
     </div>
 
 <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
@@ -234,6 +299,6 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
        onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
 </div>
-<jsp:include page="foot.jsp" />
+<%--<jsp:include page="foot.jsp" />--%>
 </body>
 </html>
