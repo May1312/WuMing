@@ -38,4 +38,5 @@
             <bean class="com.taotao.web.interceptor.CartInterceptor" />
         </mvc:interceptor> -->
     </mvc:interceptors>
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:/url.properties" />
 </beans>

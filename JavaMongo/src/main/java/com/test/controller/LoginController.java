@@ -8,6 +8,7 @@ import com.test.util.UserThreadLocal;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,16 @@ public class LoginController {
     static Logger log4j = Logger.getLogger(LoginController.class.getClass());
     @Autowired
     private MongoService mongoService;
+
+    @Autowired
+    private HttpClientUtils httpClientService;
+
+    @Value("${HTTP_PHOTO_URL}")
+    private String HTTP_PHOTO_URL;
+
+    @Value("${ALI_PHOTO_URL}")
+    private String ALI_PHOTO_URL;
+
     @RequestMapping(value = "",method= RequestMethod.GET)
     public String login(HttpServletRequest request,Model model){
         String ip = request.getHeader("X-Real-IP");
@@ -39,11 +50,25 @@ public class LoginController {
         return "login";
     }
     @RequestMapping(value = "/checkName",method= RequestMethod.GET)
-    public ResponseEntity<Map<Object, Object>> checkName(@RequestParam("name") String name){
-        int count = mongoService.checkname(name);
-        Map<Object,Object> map = new HashMap<Object, Object>();
-        map.put("count",count);
-        return ResponseEntity.ok(map);
+    public ResponseEntity<Map<String, Object>> checkName(@RequestParam("name") String name){
+        System.out.println(HTTP_PHOTO_URL);
+        User user = mongoService.checkname(name);
+        Map<String,Object> map = new HashMap<String, Object>();
+        //查看图片url
+        if(user!=null){
+            Map<String,Object> map2 = new HashMap<String, Object>();
+            map2.put("userId",user.getUserId());
+            String url = httpClientService.doGet(HTTP_PHOTO_URL + "showphoto", map2);
+            url=ALI_PHOTO_URL+url;
+            map.put("count",1);
+            map.put("url",url);
+            return ResponseEntity.ok(map);
+        }else {
+
+            map.put("count",0);
+            return ResponseEntity.ok(map);
+        }
+
     }
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     public ResponseEntity<Map<Object, Object>> receiveDate(@RequestBody User user) {

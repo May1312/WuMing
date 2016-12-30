@@ -3,14 +3,11 @@ package com.test.dao;
 import com.mongodb.*;
 import com.test.bean.User;
 import com.test.util.DateUtils;
-import com.test.util.MD5Utils;
 import com.test.util.MongoUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.mongodb.morphia.AdvancedDatastore;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Field;
@@ -103,9 +100,15 @@ public class MongoDao {
         MongoUtil.getDataStore().delete(query);
     }
 
-    public int checkname(String name) {
+    public List<User> checkname(String name) {
         Query<User> query = MongoUtil.getDataStore().createQuery(User.class);
         query.field("name").equal(name);
-        return (int) query.countAll();
+        return query.asList();
+    }
+
+    public int checkname2(String name) {
+        Query<User> query = MongoUtil.getDataStore().createQuery(User.class);
+        query.field("name").equal(name);
+        return (int)query.countAll();
     }
 }

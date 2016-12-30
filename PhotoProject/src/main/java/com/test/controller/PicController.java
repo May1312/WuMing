@@ -30,6 +30,7 @@ public class PicController {
     //定义可以接收的图片类型
     private static String[] TYPES = {".jpg",".png",".gif"};
     private static String PHOTOPATH = "/tmp/picture";
+    private static String PHOTOPATH2 = "\\tmp\\picture";
     private static String PHOTOURL = "http://120.77.169.190/";
 
     @Autowired
@@ -54,11 +55,17 @@ public class PicController {
         logger.info("执行上传图片方法");
 
         PhotoBean pb = new PhotoBean();
-        //获取文件
-        //设置上传路径
-        String fileFolder =  PHOTOPATH+ File.separator;
+        //设置上传路径---->判断所处的系统环境
+        String property = System.getProperty("os.name");
+        String fileFolder;
+        if(StringUtils.contains(property,"Windows")){
+             fileFolder =  PHOTOPATH2+ File.separator;
+        }else{
+             fileFolder =  PHOTOPATH+ File.separator;
+        }
+
         //自定义文件路径
-        String filePath = fileFolder+ Calendar.getInstance().get(Calendar.YEAR) + File.separator + (Calendar.getInstance().get(Calendar.MONTH)+1)+File.separator+Calendar.getInstance().get(Calendar.DATE);
+        String filePath = fileFolder+ Calendar.getInstance().get(Calendar.YEAR) + (Calendar.getInstance().get(Calendar.MONTH)+1)+Calendar.getInstance().get(Calendar.DATE);
         //判断该目录结构是否存在
         File file = new File(filePath);
         if(!file.isDirectory()){
@@ -78,7 +85,8 @@ public class PicController {
             System.out.println(userid);
             //保存图片信息到mysql
             int num = picService.savePhotoInfo(pb);
-            return ResponseEntity.ok(null);
+
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -195,9 +203,10 @@ public class PicController {
             return false;
         }
     }
-    @RequestMapping("/run")
-    public void run(){
-        picService.run(1);
+    @RequestMapping(value = "/showphoto",method = RequestMethod.GET)
+    public String findPhotoInfoByUserId(@RequestParam("userId") String userId){
+        String url = picService.findPhotoInfoByUserId(userId);
+        return url;
     }
 }
 

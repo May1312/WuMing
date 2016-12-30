@@ -8,5 +8,5 @@ import com.test.bean.PhotoBean;
 public interface PicService {
     public int savePhotoInfo(PhotoBean pb);
 
-    void run(int i);
+    public String findPhotoInfoByUserId(String userId);
 }

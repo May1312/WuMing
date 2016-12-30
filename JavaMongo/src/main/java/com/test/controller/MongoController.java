@@ -34,15 +34,6 @@ public class MongoController {
 	@Autowired
 	private UserService userService;
 
-	/*@Autowired
-	private HttpClientUtils httpclient;*/
-
-	/*@RequestMapping(value="/receive",method=RequestMethod.POST)
-	public void receiveDate(HttpServletRequest request){
-		System.out.println(request.getParameter("name")+request.getParameter("age")+request.getParameter("sex"));
-		//mongoService.add(user);
-		System.out.println("------");
-	}*/
 	@RequestMapping(value = "/receive", method = RequestMethod.POST)
 	public ResponseEntity<Map<Object, Object>> receiveDate(@RequestBody User user) {
 		mongoService.add(user);
@@ -91,7 +82,7 @@ public class MongoController {
 	}
 	@RequestMapping(value="/checkName",method=RequestMethod.GET)
 	public ResponseEntity<Map<Object, Object>> checkName(@RequestParam("name") String name){
-		int count = mongoService.checkname(name);
+		int count = mongoService.checkname2(name);
 		Map<Object,Object> map = new HashMap<Object, Object>();
 			map.put("count",count);
 			return ResponseEntity.ok(map);
@@ -149,7 +140,8 @@ public class MongoController {
 			map.put("userid", UserThreadLocal.get().getUserId());
 			HttpResult httpResult = httpclient.doPost(PHOTO_URL, map);
 			System.out.println(httpResult);
+			return ResponseEntity.ok(httpResult);
 		}
-		return null;
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 }

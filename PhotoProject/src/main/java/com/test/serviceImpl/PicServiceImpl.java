@@ -17,15 +17,17 @@ public class PicServiceImpl implements PicService{
     private PicDao picDao;
 
     public int savePhotoInfo(PhotoBean pb) {
-       int num = picDao.savePhotoInfo(pb);
-        if(num!=0){
-            return num;
+        //判断执行更新or新增
+        int sum = picDao.selectInfoByUserId(pb.getUserId());
+        if(sum>0){
+           return picDao.updatePhotoInfo(pb);
+        }else {
+            return picDao.savePhotoInfo(pb);
         }
-        return 0;
     }
 
     @Override
-    public void run(int i) {
-        System.out.println(i);
+    public String findPhotoInfoByUserId(String userId) {
+        return picDao.findPhotoInfoByUserId(userId);
     }
 }

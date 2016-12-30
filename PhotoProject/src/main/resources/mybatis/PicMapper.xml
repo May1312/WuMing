@@ -4,4 +4,14 @@
     <insert id="savePhotoInfo" parameterType="com.test.bean.PhotoBean" keyProperty="id" useGeneratedKeys="true" >
         INSERT INTO `photoinfo` (`user_id`, `photo_url`, `create_time`, `update_time`) VALUES (#{userId}, #{photoUrl}, NOW(), NOW());
     </insert>
+    <select id="selectInfoByUserId" parameterType="String" resultType="int">
+        SELECT COUNT(user_id) FROM `photoinfo` WHERE user_id = #{userId};
+    </select>
+    <!--keyproperty   usegeneratedkey  返回主键-->
+    <update id="updatePhotoInfo" parameterType="com.test.bean.PhotoBean" keyProperty="id" useGeneratedKeys="true">
+        UPDATE photoinfo` SET `photo_url`=#{phtotoUrl}', `update_time`=Now() WHERE (`user_id` = #{userId});
+    </update>
+    <select id="findPhotoInfoByUserId" parameterType="String" resultType="String">
+        SELECT photo_url FROM `photoinfo` WHERE user_id = #{userId};
+    </select>
 </mapper>

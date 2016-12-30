@@ -32,8 +32,8 @@
                 width:102px;
                 height:102px;
                 padding:2px;
-                border:1px solid rgb(216,216,219);
-                background:#fff url("../images/profilepicture.jpg") no-repeat 2px 2px;
+                border:2px solid rgb(21,62,78);
+                background:#fff url("../images/profilepicture.jpg") no-repeat;
             }
             .not-registered {
                 position:absolute;
@@ -418,6 +418,8 @@
                                 document.getElementById('mydiv2').innerHTML = 'The name is exist,Please login!';
                                 //置空input value值
                                 $('#name').val("");
+                                var photo_url = dataResult['url'];
+                                $("#login-form:before").css("background",'url(' + photo_url + ')');
                             }
                             yourname=true;
                         }
@@ -514,26 +516,6 @@
 
                         return rst;
                     })
-                    /*.then(function (rst) {
-                        var src = rst.base64;
-                        // 这里该上传给后端啦
-                        $.ajax({
-                            type: 'post',
-                            date:{img:src},
-                            dataType:'jsonp',
-                            jsonp:'callback',
-                            url: "http://localhost:81/photo/upload2",
-                            success: function(result){
-                                alert("返回result")
-                            }
-                        })
-
-                        return rst;
-                    })
-                    .then(function (rst) {
-                        // 如果您需要，一直then下去都行
-                        // 因为是Promise对象，可以很方便组织代码 \(^o^)/~
-                    })*/
                     .catch(function (err) {
                         // 万一出错了，这里可以捕捉到错误信息
                         // 而且以上的then都不会执行

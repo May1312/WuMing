@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PicDao {
    public int savePhotoInfo(PhotoBean pb);
+
+   public int selectInfoByUserId(String userId);
+
+   public int updatePhotoInfo(PhotoBean pb);
+
+   public String findPhotoInfoByUserId(String userId);
 }
-/*public class PicDao {
-   public int savePhotoInfo(PhotoBean pb){return 1;};
-}*/

@@ -169,42 +169,56 @@
                 $("#dialog").dialog('open');
             });
         });
+        var file;
         function showphoto(e){
+             file = e.target.files.item(0);
             var freader = new FileReader();
-            var file = e.target.files.item(0);
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                //回显图片
+                 document.getElementById('ajaxdiv').removeAttribute('hidden');
+                 $("#myImg").attr("src",e.target.result);
+                /*document.getElementById('myImg').setAttribute('src',submitData.img);*/
+             }
+        }
+        function uploadphoto(){
+            if ($('#uploadform').form('validate')){
+                //yasuo.....
+                lrz(file,{width:300})
+                        .then(function (rst) {
+                            var submitData={
+                                img:rst.base64,
+                                photoname:rst.origin.name,
+                                fileLength:rst.base64.length
+                            };
+                            $.ajax({
+                                type: "POST",
+                                url: "http://localhost/mongo/photo",
+                                data: submitData,
+                                beforeSend: function(XMLHttpRequest){
+                                    //showLoader();
+                                },
+                                success: function(data){
 
-            lrz(file,{width:300})
-                    .then(function (rst) {
-                        var submitData={
-                            img:rst.base64,
-                            photoname:rst.origin.name,
-                            fileLength:rst.base64.length
-                        };
-                        //回显图片
-                        document.getElementById('ajaxdiv').removeAttribute('hidden');
-                        document.getElementById('myImg').setAttribute('src',submitData.img);
+                                    if (data && data.code==201) {
+                                        $.messager.alert("消息","上传成功！");
+                                        clearform();
 
-                        $.ajax({
-                            type: "POST",
-                            url: "http://localhost/mongo/photo",
-                            data: submitData,
-                            /*dataType:"jsonp",
-                             jsonpCallback:"hang",*/
-                            beforeSend: function(XMLHttpRequest){
-                                //showLoader();
-                            },
-                            success: function(data){
-
-                                if (date.state==200) {
-                                    alert(data.message);
-                                }else{
-                                    alert(data.thumbnail);
-
-                                    return false;
+                                    }else{
+                                        $.messager.alert("警告","上传失败！");
+                                        clearform();
+                                    }
                                 }
-                            }
+                            })
                         })
-                    })}
+                  }
+            }
+        function clearform(){
+            $("#uploadform").form("clear");
+            //隐藏图片
+            document.getElementById('ajaxdiv').setAttribute('hidden','hidden');
+            $('#dialog').dialog('close');
+        }
     </script>
 </head>
 <body>
@@ -213,16 +227,20 @@
         <div class="demo-tip icon-tip">&nbsp;</div>
         <h2>点击new user</h2>
     </div>
+    <div id="showphoto" style="margin-bottom:10px;">
+        <img src="${pageContext.request.contextPath}/images/trip.png" id="user_photo" width="50px" height="50px">
+    </div>
     <div>
         <input type="button" value="设置头像" id="showdialog" name="dialoginput">
     </div>
     <%--弹窗ajax图片上传--%>
-    <div id="dialog" title="UPLOAD" style="height: 200px;width: 1024px">
-        <form name="upload" method="post" enctype="multipart/form-data" action="http://127.0.0.1:81/photo/upload" >
+    <div id="dialog" title="UPLOAD" style="height: 200px;width: 1024px" buttons="#show-button">
+        <form id="uploadform" method="post" >
             <div id="ajaxdiv" hidden="hidden" align="center" style="margin-bottom:10px;">
                 <img src="" id="myImg" width="50px" height="50px"></div>
-            <div style="margin-bottom:10px;">
-                <input type="file" id="ajaxfile" accept="image/*" name="myfile" onchange="showphoto(event)" required />
+            <div style="margin-bottom:10px;margin-top: 20px" align="center" >
+                <%--class="easyui-validatebox"  设置required=true 才会生效--%>
+                <input type="file" id="ajaxfile" accept="image/*" name="myfile" onchange="showphoto(event)" class="easyui-validatebox" required="true" />
             </div>
         </form>
     </div>
@@ -230,7 +248,7 @@
 <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true"
        rownumbers="true" fitColumns="true" singleSelect="true" data-options="total:114"
-        <%--url="${pageContext.request.contextPath}/mongo/show"--%>>
+        <%--url="${pageContext.request.contextPath}/mongo/show"--%>
     <thead>
     <tr>
         <th field="userId" width="50" hidden="hidden">userId</th>
@@ -241,6 +259,7 @@
     </tr>
     </thead>
     <tbody>
+
     <c:forEach items="${users}" var="user">
         <tr>
             <td hidden="hidden">${user.userId}</td>
@@ -298,6 +317,10 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
        onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+</div>
+<div id="show-button">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="uploadphoto()">Upload</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="clearform()">Cancel</a>
 </div>
 <%--<jsp:include page="foot.jsp" />--%>
 </body>

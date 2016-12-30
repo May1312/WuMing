@@ -8,6 +8,7 @@ import com.test.util.MD5Utils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,12 +56,23 @@ public class MongoServiceImpl implements MongoService {
 		mongodb.remove(userId);
 	}
 
-	public int checkname(String name) {
-		return mongodb.checkname(name);
+	public User checkname(String name) {
+		List<User> list = mongodb.checkname(name);
+		if(list!=null){
+			return list.get(0);
+		}
+		return null;
 	}
 
 	public int queryUserCount() {
 		return mongodb.queryUserCount();
 	}
+
+	@Override
+	public int checkname2(String name) {
+		return mongodb.checkname2(name);
+	}
+	@Value("${HTTP_PHOTO_URL}")
+	private String HTTP_PHOTO_URL;
 
 }

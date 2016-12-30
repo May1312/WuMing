@@ -12,7 +12,9 @@ public interface MongoService {
 
 	public void remove(String userId);
 
-	public int checkname(String name);
+	public User checkname(String name);
 
 	public int queryUserCount();
+
+	int checkname2(String name);
 }
