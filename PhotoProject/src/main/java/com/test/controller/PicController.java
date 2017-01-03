@@ -204,9 +204,9 @@ public class PicController {
         }
     }
     @RequestMapping(value = "/showphoto",method = RequestMethod.GET)
-    public String findPhotoInfoByUserId(@RequestParam("userId") String userId){
+    public ResponseEntity<String> findPhotoInfoByUserId(@RequestParam("userId") String userId){
         String url = picService.findPhotoInfoByUserId(userId);
-        return url;
+        return ResponseEntity.ok(url);
     }
 }
 

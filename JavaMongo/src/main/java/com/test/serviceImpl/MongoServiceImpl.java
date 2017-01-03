@@ -58,7 +58,7 @@ public class MongoServiceImpl implements MongoService {
 
 	public User checkname(String name) {
 		List<User> list = mongodb.checkname(name);
-		if(list!=null){
+		if(list!=null && list.size()>0){
 			return list.get(0);
 		}
 		return null;

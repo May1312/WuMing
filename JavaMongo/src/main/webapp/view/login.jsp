@@ -24,7 +24,7 @@
                 background-image:-*-linear-gradient(top,rgb(255,255,255),rgb(242,242,242));
                 box-shadow:0px 0px 2px 2px rgba(21,62,78,0.8);
             }
-            .login-form:before {
+            /*.login-form:before {
                 content:"";
                 position:absolute;
                 top:-50px;
@@ -33,8 +33,9 @@
                 height:102px;
                 padding:2px;
                 border:2px solid rgb(21,62,78);
-                background:#fff url("../images/profilepicture.jpg") no-repeat;
-            }
+                background:#fff url("../images/trip.png") no-repeat;
+                background-size:102px 102px;
+            }*/
             .not-registered {
                 position:absolute;
                 color:rgb(153,153,153);
@@ -199,7 +200,6 @@
         <script src="${pageContext.request.contextPath}/js/lrz/lrz.all.bundle.js"></script>
     <body>
 	<!-- Header -->
-        <div id="div1">
 			<section id="header" class="dark" >
 				<header>
 					<h1>Welcome to MyWeb</h1>
@@ -212,6 +212,10 @@
          </div>
 		<!-- First -->
     <div id="div2">
+        <div id="show_photot" style="position: relative;left: 50%;bottom: 380px;color: #fff3f3;height: 120px;width: 102px;border: 2px cyan;padding: 2px;">
+            <h1>hello</h1>
+        </div>
+        <div id="div1">
 			<section id="first" class="main">
 				<header>
 						<h2>Please input your username and password</h2>
@@ -410,6 +414,7 @@
                     url: '/login/checkName?' + "name=" + name,
                     success: function (dataResult, textStatus) {
                         if (dataResult['count'] == 0) {
+                            document.getElementById('mydiv').removeAttribute('hidden');
                             document.getElementById('mydiv').innerHTML = 'The name is not exist!';
                             //置空input value值
                             $('#txt_name').val("");
@@ -419,8 +424,13 @@
                                 //置空input value值
                                 $('#name').val("");
                                 var photo_url = dataResult['url'];
-                                $("#login-form:before").css("background",'url(' + photo_url + ')');
-                            }
+                                /*var div=document.querySelector('#form1');
+                                var background=window.getComputedStyle(div,'::before').getPropertyValue('background');
+                                alert(background);*/
+                                /*$('#form1').append("<style>.login-form::before{ background:url("+photo_url+")}</style>");*/
+                                $('#form1').append("<style>.login-form::before{background-image: url("+photo_url+")}</style>");
+                               /* $("#form1").css("background",'url(' + photo_url + ')');*/
+                        }
                             yourname=true;
                         }
                     },

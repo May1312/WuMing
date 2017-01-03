@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="jquery,ui,easy,easyui,web">
     <meta name="description" content="easyui help you build your web page easily!">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/trip.png" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/123.ico" type="image/x-icon">
     <title>welcome</title>
     <link rel="stylesheet" type="text/css" href="../css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../css/icon.css">
@@ -154,9 +154,9 @@
         }
         $(function(){
             var dlg = $("#dialog").dialog({
-               /* resizable: true,
-                autoOpen: false,
-                modal: true,*/
+                /* resizable: true,
+                 autoOpen: false,
+                 modal: true,*/
                 title: '设置头像',
                 width: 400,
                 height: 200,
@@ -171,15 +171,15 @@
         });
         var file;
         function showphoto(e){
-             file = e.target.files.item(0);
+            file = e.target.files.item(0);
             var freader = new FileReader();
             freader.readAsDataURL(file);
             freader.onload = function(e) {
                 //回显图片
-                 document.getElementById('ajaxdiv').removeAttribute('hidden');
-                 $("#myImg").attr("src",e.target.result);
+                document.getElementById('ajaxdiv').removeAttribute('hidden');
+                $("#myImg").attr("src",e.target.result);
                 /*document.getElementById('myImg').setAttribute('src',submitData.img);*/
-             }
+            }
         }
         function uploadphoto(){
             if ($('#uploadform').form('validate')){
@@ -211,8 +211,8 @@
                                 }
                             })
                         })
-                  }
             }
+        }
         function clearform(){
             $("#uploadform").form("clear");
             //隐藏图片
@@ -223,32 +223,32 @@
 </head>
 <body>
 <h2>Test CRUD Databash</h2>
-    <div class="demo-info" style="margin-bottom:10px">
-        <div class="demo-tip icon-tip">&nbsp;</div>
-        <h2>点击new user</h2>
-    </div>
-    <div id="showphoto" style="margin-bottom:10px;">
-        <img src="${pageContext.request.contextPath}/images/trip.png" id="user_photo" width="50px" height="50px">
-    </div>
-    <div>
-        <input type="button" value="设置头像" id="showdialog" name="dialoginput">
-    </div>
-    <%--弹窗ajax图片上传--%>
-    <div id="dialog" title="UPLOAD" style="height: 200px;width: 1024px" buttons="#show-button">
-        <form id="uploadform" method="post" >
-            <div id="ajaxdiv" hidden="hidden" align="center" style="margin-bottom:10px;">
-                <img src="" id="myImg" width="50px" height="50px"></div>
-            <div style="margin-bottom:10px;margin-top: 20px" align="center" >
-                <%--class="easyui-validatebox"  设置required=true 才会生效--%>
-                <input type="file" id="ajaxfile" accept="image/*" name="myfile" onchange="showphoto(event)" class="easyui-validatebox" required="true" />
-            </div>
-        </form>
-    </div>
+<div class="demo-info" style="margin-bottom:10px">
+    <div class="demo-tip icon-tip">&nbsp;</div>
+    <h2>点击new user</h2>
+</div>
+<div id="showphoto" style="margin-bottom:10px;">
+    <img src="${pageContext.request.contextPath}/images/trip.png" id="user_photo" width="50px" height="50px">
+</div>
+<div>
+    <input type="button" value="设置头像" id="showdialog" name="dialoginput">
+</div>
+<%--弹窗ajax图片上传--%>
+<div id="dialog" title="UPLOAD" style="height: 200px;width: 1024px" buttons="#show-button">
+    <form id="uploadform" method="post" >
+        <div id="ajaxdiv" hidden="hidden" align="center" style="margin-bottom:10px;">
+            <img src="" id="myImg" width="50px" height="50px"></div>
+        <div style="margin-bottom:10px;margin-top: 20px" align="center" >
+            <%--class="easyui-validatebox"  设置required=true 才会生效--%>
+            <input type="file" id="ajaxfile" accept="image/*" name="myfile" onchange="showphoto(event)" class="easyui-validatebox" required="true" />
+        </div>
+    </form>
+</div>
 
 <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true"
        rownumbers="true" fitColumns="true" singleSelect="true" data-options="total:114"
-        <%--url="${pageContext.request.contextPath}/mongo/show"--%>
+<%--url="${pageContext.request.contextPath}/mongo/show"--%>>
     <thead>
     <tr>
         <th field="userId" width="50" hidden="hidden">userId</th>
@@ -259,7 +259,6 @@
     </tr>
     </thead>
     <tbody>
-
     <c:forEach items="${users}" var="user">
         <tr>
             <td hidden="hidden">${user.userId}</td>

@@ -59,12 +59,18 @@ public class LoginController {
             Map<String,Object> map2 = new HashMap<String, Object>();
             map2.put("userId",user.getUserId());
             String url = httpClientService.doGet(HTTP_PHOTO_URL + "showphoto", map2);
-            url=ALI_PHOTO_URL+url;
-            map.put("count",1);
-            map.put("url",url);
+            if(StringUtils.isBlank(url)){
+                map.put("count",1);
+            }else {
+                url= StringUtils.substring(url, 12);
+               /* url = split[];*/
+                url=ALI_PHOTO_URL+url;
+                map.put("count",1);
+                map.put("url",url);
+            }
+
             return ResponseEntity.ok(map);
         }else {
-
             map.put("count",0);
             return ResponseEntity.ok(map);
         }
