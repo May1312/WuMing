@@ -49,4 +49,14 @@ public class UserServiceImpl implements UserService {
         User user = JSON.parseObject(s, User.class);
         return user;
     }
+    //weibo-login
+    public String weiboLogin(String uid) {
+                //save user uid
+                UserThreadLocal.set(uid);
+                //
+                String ticket = "uid";
+                redisService.set(ticket, uid, 60 * 60);
+                return ticket;
+
+    }
 }

@@ -4,6 +4,8 @@ import com.test.bean.HttpResult;
 import com.test.bean.User;
 import com.test.service.HttpClientUtils;
 import com.test.service.MongoService;
+import com.test.service.UserService;
+import com.test.util.CookieUtil;
 import com.test.util.UserThreadLocal;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -16,8 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import weibo4j.Account;
+import weibo4j.Oauth;
+import weibo4j.http.AccessToken;
+import weibo4j.model.WeiboException;
+import weibo4j.org.json.JSONException;
+import weibo4j.org.json.JSONObject;
+import weibo4j.util.BareBonesBrowserLaunch;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,11 +45,17 @@ public class LoginController {
     @Autowired
     private HttpClientUtils httpClientService;
 
+    @Autowired
+    private UserService userService;
+
     @Value("${HTTP_PHOTO_URL}")
     private String HTTP_PHOTO_URL;
 
     @Value("${ALI_PHOTO_URL}")
     private String ALI_PHOTO_URL;
+
+    @Value("${WeiBo_UID_URL}")
+    private String WeiBo_UID_URL;
 
     @RequestMapping(value = "",method= RequestMethod.GET)
     public String login(HttpServletRequest request,Model model){
@@ -108,5 +124,59 @@ public class LoginController {
             System.out.println(httpResult);
         }
         return null;
+    }
+    @RequestMapping(value = "/weibo",method = RequestMethod.GET)
+    public void GotoWeiBo(){
+        //触发应用授权
+        try {
+            Oauth oauth = new Oauth();
+            BareBonesBrowserLaunch.openURL(oauth.authorize("code"));
+
+        } catch (WeiboException e) {
+            e.printStackTrace();
+        }
+    }
+    @RequestMapping(value = "/weibo/code",method = RequestMethod.GET)
+    public void getCode(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response){
+
+        try {
+            //获取accesstoken 对象
+            Oauth oauth = new Oauth();
+            AccessToken accessToken = oauth.getAccessTokenByCode(code);
+            String access_token = accessToken.getAccessToken();
+            //获取uid
+            Account am = new Account(access_token);
+            JSONObject uidObject = am.getUid();
+            String uid = uidObject.getString("uid");
+            System.out.println("亲uid："+uid);
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("uid",uid);
+            WeiBo_UID_URL = WeiBo_UID_URL+"checkUid";
+            HttpResult result = httpClientService.doPost(WeiBo_UID_URL, map);
+            System.out.println(result);
+            if(result.getBody().equalsIgnoreCase("0")){
+                //没有绑定，跳转到注册
+            }else{
+                //直接登陆
+                String ticket = userService.weiboLogin(uid);
+
+                if (StringUtils.isNotBlank(ticket)) {
+                    log4j.info("设置浏览器ticket："+ticket);
+                    //CookieUtils.setCookie(request, response, "hang", ticket, 60 * 60 * 24 * 1, true);
+                    CookieUtil.addCookie("hang", ticket, true, request, response);
+                    try {
+                        //重定向可以  转发不行
+                        response.sendRedirect("/mongo/showpage");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (WeiboException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

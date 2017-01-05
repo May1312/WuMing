@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
+<html xmlns:wb="http://open.weibo.com/wb" />
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +20,7 @@
                 width:400px;
                 height:300px;
                 margin:70px auto 0;
-                padding-top:73px;
+                padding-top:1px;
                 position:relative;
                 background-image:-*-linear-gradient(top,rgb(255,255,255),rgb(242,242,242));
                 box-shadow:0px 0px 2px 2px rgba(21,62,78,0.8);
@@ -198,6 +199,7 @@
         <script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
         <%--picture 压缩--%>
         <script src="${pageContext.request.contextPath}/js/lrz/lrz.all.bundle.js"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=4141767579" type="text/javascript" charset="utf-8"></script>
     <body>
 	<!-- Header -->
 			<section id="header" class="dark" >
@@ -205,16 +207,13 @@
 					<h1>Welcome to MyWeb</h1>
                     <p>你好,你当前的ip为:${ip}.  <a href="http://120.77.169.190:82/psb.jpg">HTML5</a></p>
 				</header>
-				<footer>
+				<footer>3
 					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
 				</footer>
 			</section>
          </div>
 		<!-- First -->
     <div id="div2">
-        <div id="show_photot" style="position: relative;left: 50%;bottom: 380px;color: #fff3f3;height: 120px;width: 102px;border: 2px cyan;padding: 2px;">
-            <h1>hello</h1>
-        </div>
         <div id="div1">
 			<section id="first" class="main">
 				<header>
@@ -222,6 +221,10 @@
                     <h4>我猜着你的名字刻在了墙上,你画了我的摸样对着弯月亮.</h4>
 						<center>
                             <form id="form1" action="${pageContext.request.contextPath}/mongo/login" method="post" class="login-form">
+                                <div id="show_photot" style="height: 102px;width: 102px;padding: 2px;border: 1px solid #041024">
+                                    <%--pictur suituation the div to set the height and width 100%--%>
+                                    <img id="show_img" src="/images/sky.jpg" width="100%" height="100%">
+                                </div>
                                 <div id="mydiv" style="color:#F00;width: 100%" hidden="hidden"></div>
                                 <div class="username">
                                     <input id="txt_name" type="text" name="name" autocomplete="on" onblur="checkName(this.value)" placeholder="name"/>
@@ -237,6 +240,7 @@
                                 <%--<input type="submit" value="login">--%>
                                 <%--<a href="#second" onclick="changPage('div3','div2')">Regist</a>--%>
                                 <input type="button" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')"/>
+                                <wb:login-button type="3,2" onlogin="login" onlogout="logout">登录按钮</wb:login-button>
                             </form>
 						</center>
 				</header>
@@ -339,6 +343,9 @@
 						<li>&copy; It's My First Web.</li><li>Design: <a href="http://120.77.169.190:82/psb.jpg">HANG</a></li>
 					</ul>
 			</section>
+        <% String code = request.getParameter("code");%>
+            <%=code%>
+
 	</body>
     <script type="text/javascript">
         function login() {
@@ -428,7 +435,7 @@
                                 var background=window.getComputedStyle(div,'::before').getPropertyValue('background');
                                 alert(background);*/
                                 /*$('#form1').append("<style>.login-form::before{ background:url("+photo_url+")}</style>");*/
-                                $('#form1').append("<style>.login-form::before{background-image: url("+photo_url+")}</style>");
+                                document.getElementById('show_img').setAttribute('src',photo_url);
                                /* $("#form1").css("background",'url(' + photo_url + ')');*/
                         }
                             yourname=true;
@@ -625,5 +632,16 @@
                 window.location.reload();
             });
         });
+        WB2.anyWhere(function(W){
+            W.widget.connectButton({
+                id: "wb_connect_btn",
+                type:"3,2",
+                callback : {
+                    login:function(o){	//登录后的回调函数
+                    },
+                    logout:function(){	//退出后的回调函数
+                    }
+                }
+            })});
     </script>
 </html>

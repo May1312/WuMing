@@ -9,4 +9,6 @@ public interface UserService {
     public String login(User user);
 
     public User findUserCacheByTicket(String ticket);
+
+    public String weiboLogin(String uid);
 }
