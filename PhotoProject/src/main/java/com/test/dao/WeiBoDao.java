@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface WeiBoDao {
-    int checkUid(String uid);
+    public int checkUid(String uid);
+    public String findUserIdByUid(String uid);
+    public void saveUid(String uid,String userId);
 }

@@ -14,6 +14,12 @@ public class WeiBOServiceImpl implements WeiBoService {
     private WeiBoDao weiBoDao;
     @Override
     public int checkUid(String uid) {
-        return weiBoDao.checkUid(uid);
+        int i = weiBoDao.checkUid(uid);
+        return i;
+    }
+
+    @Override
+    public String findUserIdByUid(String uid) {
+        return weiBoDao.findUserIdByUid(uid);
     }
 }

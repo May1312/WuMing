@@ -28,6 +28,7 @@ import weibo4j.util.BareBonesBrowserLaunch;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -151,11 +152,15 @@ public class LoginController {
             System.out.println("亲uid："+uid);
             Map<String,Object> map = new HashMap<String, Object>();
             map.put("uid",uid);
-            WeiBo_UID_URL = WeiBo_UID_URL+"checkUid";
-            HttpResult result = httpClientService.doPost(WeiBo_UID_URL, map);
+            HttpResult result = httpClientService.doPost(WeiBo_UID_URL+"checkUid", map);
             System.out.println(result);
             if(result.getBody().equalsIgnoreCase("0")){
-                //没有绑定，跳转到注册
+                //没有绑定，跳转到登陆或注册界面
+                try {
+                    response.sendRedirect("/login");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }else{
                 //直接登陆
                 String ticket = userService.weiboLogin(uid);

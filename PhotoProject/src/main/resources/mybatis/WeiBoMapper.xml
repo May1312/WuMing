@@ -5,5 +5,10 @@
     <select id="checkUid" parameterType="String" resultType="int">
         SELECT COUNT(user_id) FROM `user_weibo` WHERE uid = #{uid};
     </select>
-
+    <select id="findUserIdByUid" parameterType="String" resultType="String">
+        SELECT user_id FROM `user_weibo` WHERE uid = #{uid};
+    </select>
+    <insert id="saveUid" parameterType="String">
+        INSERT INTO `user_weibo` ( `uid`, `user_id`, `status`, `creat_time`) VALUES (#{uid}, userId, 0, NOW());
+    </insert>
 </mapper>

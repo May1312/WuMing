@@ -22,4 +22,9 @@ public class WeiBoController {
         String flag = weiBoService.checkUid(uid)+"";
         return ResponseEntity.ok(flag);
     }
+    @RequestMapping(value = "/findUserIdByUid",method = RequestMethod.POST)
+    public ResponseEntity findUserIdByUid(@RequestParam("uid") String uid){
+        String userId = weiBoService.findUserIdByUid("uid");
+        return null;
+    }
 }

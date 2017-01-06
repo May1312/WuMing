@@ -20,4 +20,13 @@ public class UserDao {
         }
         return null;
     }
+
+    public User findUserByUserId(String userId) {
+        Query<User> query = MongoUtil.getDataStore().createQuery(User.class);
+        query.field("userId").equal(userId);
+        if (query.asList().size()>0){
+            return query.asList().get(0);
+        }
+        return null;
+    }
 }
