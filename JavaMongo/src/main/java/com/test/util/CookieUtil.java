@@ -28,9 +28,11 @@ public class CookieUtil {
 		}
 		
 		if (path != null && !"".equals(path)) {
-			cookieValue.append("path=" + path + ";");
+			/*cookieValue.append("path=" + path + ";");*/
+			cookieValue.append("path=" + "/" + ";");
 		} else {
-			cookieValue.append("path=" + request.getContextPath() + ";");
+			/*cookieValue.append("path=" + request.getContextPath() + ";");*/
+			cookieValue.append("path=" + "/" + ";");
 		}
 		
 		

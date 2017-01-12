@@ -207,7 +207,7 @@
 					<h1>Welcome to MyWeb</h1>
                     <p>你好,你当前的ip为:${ip}.  <a href="http://120.77.169.190:82/psb.jpg">HTML5</a></p>
 				</header>
-				<footer>3
+				<footer>
 					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
 				</footer>
 			</section>

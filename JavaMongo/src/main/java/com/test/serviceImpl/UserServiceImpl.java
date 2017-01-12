@@ -67,8 +67,11 @@ public class UserServiceImpl implements UserService {
         //根据uid查询---->user info
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("uid",uid);
-        WeiBo_UID_URL = WeiBo_UID_URL+"/findUserIdByUid";
-        HttpResult httpResult = httpClientUtils.doPost(WeiBo_UID_URL, map);
+        HttpResult httpResult = httpClientUtils.doPost(WeiBo_UID_URL+"findUserIdByUid", map);
+        //判断返回的状态码是否正常
+        if(httpResult.getCode()!=200){
+            return null;
+        }
         String userId = httpResult.getBody();
         if(StringUtils.isNotBlank(userId)){
             User user2 = userDao.findUserByUserId(userId);

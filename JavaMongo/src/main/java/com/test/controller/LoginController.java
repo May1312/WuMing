@@ -138,8 +138,8 @@ public class LoginController {
         }
     }
     @RequestMapping(value = "/weibo/code",method = RequestMethod.GET)
-    public void getCode(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response){
-
+    public String getCode(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response){
+        Map<String,Object> map = new HashMap<String, Object>();
         try {
             //获取accesstoken 对象
             Oauth oauth = new Oauth();
@@ -150,7 +150,6 @@ public class LoginController {
             JSONObject uidObject = am.getUid();
             String uid = uidObject.getString("uid");
             System.out.println("亲uid："+uid);
-            Map<String,Object> map = new HashMap<String, Object>();
             map.put("uid",uid);
             HttpResult result = httpClientService.doPost(WeiBo_UID_URL+"checkUid", map);
             System.out.println(result);
@@ -171,7 +170,11 @@ public class LoginController {
                     CookieUtil.addCookie("hang", ticket, true, request, response);
                     try {
                         //重定向可以  转发不行
-                        response.sendRedirect("/mongo/showpage");
+                        return "weibopage";
+                       // request.getRequestDispatcher("/mongo/showpage").forward(request, response);
+                        /*map.put("msg","request success");
+                        map.put("status",200);
+                        return ResponseEntity.ok(map);*/
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -183,5 +186,10 @@ public class LoginController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        /*map.put("msg","request fail");
+        map.put("status",500);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);*/
+        return null;
     }
+
 }

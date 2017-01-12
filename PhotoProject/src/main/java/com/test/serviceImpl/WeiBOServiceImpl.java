@@ -20,6 +20,7 @@ public class WeiBOServiceImpl implements WeiBoService {
 
     @Override
     public String findUserIdByUid(String uid) {
-        return weiBoDao.findUserIdByUid(uid);
+        String userId = weiBoDao.findUserIdByUid(uid);
+        return userId;
     }
 }

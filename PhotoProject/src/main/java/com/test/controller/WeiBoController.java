@@ -24,7 +24,7 @@ public class WeiBoController {
     }
     @RequestMapping(value = "/findUserIdByUid",method = RequestMethod.POST)
     public ResponseEntity findUserIdByUid(@RequestParam("uid") String uid){
-        String userId = weiBoService.findUserIdByUid("uid");
-        return null;
+        String userId = weiBoService.findUserIdByUid(uid);
+        return ResponseEntity.ok(userId);
     }
 }
