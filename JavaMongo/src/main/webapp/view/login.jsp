@@ -240,7 +240,7 @@
                                 <%--<input type="submit" value="login">--%>
                                 <%--<a href="#second" onclick="changPage('div3','div2')">Regist</a>--%>
                                 <input type="button" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')"/>
-                                <wb:login-button type="3,2" onlogin="login" onlogout="logout">登录按钮</wb:login-button>
+                                <wb:login-button type="3,2" onclick="weiboLogin()">登录按钮</wb:login-button>
                             </form>
 						</center>
 				</header>
@@ -632,16 +632,15 @@
                 window.location.reload();
             });
         });
-        WB2.anyWhere(function(W){
-            W.widget.connectButton({
-                id: "wb_connect_btn",
-                type:"3,2",
-                callback : {
-                    login:function(o){	//登录后的回调函数
-                    },
-                    logout:function(){	//退出后的回调函数
-                    }
+        function weiboLogin(){
+            $.ajax({
+                type:'GET',
+                url:"/login/weibo",
+                success:function(data){
+                    alert(data);
                 }
-            })});
+            })
+            window.close();
+        }
     </script>
 </html>
