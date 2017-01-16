@@ -24,11 +24,10 @@ import weibo4j.http.AccessToken;
 import weibo4j.model.WeiboException;
 import weibo4j.org.json.JSONException;
 import weibo4j.org.json.JSONObject;
-import weibo4j.util.BareBonesBrowserLaunch;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +57,7 @@ public class LoginController {
     @Value("${WeiBo_UID_URL}")
     private String WeiBo_UID_URL;
 
+    static String uid;
     @RequestMapping(value = "",method= RequestMethod.GET)
     public String login(HttpServletRequest request,Model model){
         String ip = request.getHeader("X-Real-IP");
@@ -127,6 +127,18 @@ public class LoginController {
         return null;
     }
     @RequestMapping(value = "/weibo",method = RequestMethod.GET)
+    public void GotoWeiBo(HttpServletRequest request,HttpServletResponse response){
+        //触发应用授权
+        try {
+                PrintWriter writer = response.getWriter();
+            Oauth oauth = new Oauth();
+            /*writer.print("<script>"+"window.location.href='" + oauth.authorize("code") + "'<script>");*/
+            writer.print(oauth.authorize("code"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /*@RequestMapping(value = "/weibo",method = RequestMethod.GET)
     public void GotoWeiBo(){
         //触发应用授权
         try {
@@ -136,7 +148,7 @@ public class LoginController {
         } catch (WeiboException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     @RequestMapping(value = "/weibo/code",method = RequestMethod.GET)
     public String getCode(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response){
         Map<String,Object> map = new HashMap<String, Object>();
@@ -148,18 +160,14 @@ public class LoginController {
             //获取uid
             Account am = new Account(access_token);
             JSONObject uidObject = am.getUid();
-            String uid = uidObject.getString("uid");
+            uid = uidObject.getString("uid");
             System.out.println("亲uid："+uid);
             map.put("uid",uid);
             HttpResult result = httpClientService.doPost(WeiBo_UID_URL+"checkUid", map);
             System.out.println(result);
             if(result.getBody().equalsIgnoreCase("0")){
-                //没有绑定，跳转到登陆或注册界面
-                try {
-                    response.sendRedirect("/login");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //没有绑定，跳转到绑定界面
+                    return "bind_weibo";
             }else{
                 //直接登陆
                 String ticket = userService.weiboLogin(uid);
@@ -191,5 +199,4 @@ public class LoginController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);*/
         return null;
     }
-
 }

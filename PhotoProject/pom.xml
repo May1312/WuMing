@@ -161,7 +161,11 @@
 			<artifactId>druid</artifactId>
 			<version>1.0.18</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.7</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.jolbox/bonecp
 		<dependency>
 			<groupId>com.jolbox</groupId>

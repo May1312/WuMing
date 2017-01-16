@@ -11,4 +11,6 @@ public interface UserService {
     public User findUserCacheByTicket(String ticket);
 
     public String weiboLogin(String uid);
+
+    public void checkUid(String uid,User user);
 }

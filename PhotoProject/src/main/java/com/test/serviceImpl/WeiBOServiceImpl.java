@@ -23,4 +23,9 @@ public class WeiBOServiceImpl implements WeiBoService {
         String userId = weiBoDao.findUserIdByUid(uid);
         return userId;
     }
+
+    @Override
+    public int saveUidAndUserId(String uid, String userId) {
+        return weiBoDao.saveUidAndUserId(uid,userId);
+    }
 }

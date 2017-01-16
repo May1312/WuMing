@@ -103,6 +103,11 @@ public class MongoController {
 		//user.setName(name);
 		//user.setPassword(password);
 		String ticket = userService.login(user);
+		//
+		userService.checkUid(LoginController.uid,user);
+		System.out.println(LoginController.uid);
+		//置空静态成员变量
+		LoginController.uid = null;
 		Map map = new HashMap();
 
 		if (StringUtils.isNotBlank(ticket)) {

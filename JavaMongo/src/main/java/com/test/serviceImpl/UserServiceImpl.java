@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
                 return null;
             }
       }
-    return null;
+        return null;
     }
 
     public User findUserCacheByTicket(String ticket) {
@@ -87,4 +87,21 @@ public class UserServiceImpl implements UserService {
                     return null;
                 }
         }
+
+    @Override
+    public void checkUid(String uid,User user) {
+        //校验是否已存在uid
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("uid",uid);
+        HttpResult httpResult = httpClientUtils.doPost(WeiBo_UID_URL+"checkUid", map);
+        if(Integer.valueOf(httpResult.getBody())<1){
+            //need to get userid
+            User user2 = userDao.findUserByName(user.getName());
+            //save uid and user
+            String s = JSON.toJSONString(user2);
+            map.put("user",s);
+            HttpResult httpResult1 = httpClientUtils.doPost(WeiBo_UID_URL+"saveUid", map);
+            System.out.println(httpResult1.getBody());
+        }
+    }
 }

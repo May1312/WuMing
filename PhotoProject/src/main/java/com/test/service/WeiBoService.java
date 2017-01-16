@@ -6,4 +6,5 @@ package com.test.service;
 public interface WeiBoService {
     public int checkUid(String uid);
     public String findUserIdByUid(String uid);
+    public int saveUidAndUserId(String uid, String userId);
 }

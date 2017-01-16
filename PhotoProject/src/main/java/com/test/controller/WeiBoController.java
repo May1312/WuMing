@@ -1,5 +1,7 @@
 package com.test.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.test.bean.User;
 import com.test.service.WeiBoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +28,12 @@ public class WeiBoController {
     public ResponseEntity findUserIdByUid(@RequestParam("uid") String uid){
         String userId = weiBoService.findUserIdByUid(uid);
         return ResponseEntity.ok(userId);
+    }
+    @RequestMapping(value = "/saveUid",method = RequestMethod.POST)
+    public ResponseEntity saveUid(@RequestParam("uid") String uid,@RequestParam("user") String user){
+        User user1 = JSON.parseObject(user, User.class);
+        //save uid and user to mysql
+        int id = weiBoService.saveUidAndUserId(uid,user1.getUserId());
+        return ResponseEntity.ok(id);
     }
 }

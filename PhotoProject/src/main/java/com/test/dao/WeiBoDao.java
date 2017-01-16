@@ -10,4 +10,5 @@ public interface WeiBoDao {
     public int checkUid(String uid);
     public String findUserIdByUid(String uid);
     public void saveUid(String uid,String userId);
+    public int saveUidAndUserId(String uid, String userId);
 }
