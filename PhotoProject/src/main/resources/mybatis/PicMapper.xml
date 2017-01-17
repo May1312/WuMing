@@ -2,16 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.dao.PicDao">
     <insert id="savePhotoInfo" parameterType="com.test.bean.PhotoBean" keyProperty="id" useGeneratedKeys="true" >
-        INSERT INTO `photoinfo` (`user_id`, `photo_url`, `create_time`, `update_time`) VALUES (#{userId}, #{photoUrl}, NOW(), NOW());
+        INSERT INTO `photo_info` (`user_id`, `photo_url`, `create_time`, `update_time`) VALUES (#{userId}, #{photoUrl}, NOW(), NOW());
     </insert>
     <select id="selectInfoByUserId" parameterType="String" resultType="int">
-        SELECT COUNT(user_id) FROM `photoinfo` WHERE user_id = #{userId};
+        SELECT COUNT(user_id) FROM `photo_info` WHERE user_id = #{userId};
     </select>
     <!--keyproperty   usegeneratedkey  返回主键-->
     <update id="updatePhotoInfo" parameterType="com.test.bean.PhotoBean" keyProperty="id" useGeneratedKeys="true">
-        UPDATE photoinfo` SET `photo_url`=#{phtotoUrl}', `update_time`=Now() WHERE (`user_id` = #{userId});
+        UPDATE `photo_info` SET `photo_url`=#{photoUrl}, `update_time`=Now() WHERE (`user_id` = #{userId});
     </update>
     <select id="findPhotoInfoByUserId" parameterType="String" resultType="String">
-        SELECT photo_url FROM `photoinfo` WHERE user_id = #{userId};
+        SELECT photo_url FROM `photo_info` WHERE user_id = #{userId};
+    </select>
+    <select id="getPhotoBeanByUserId" parameterType="String" resultType="com.test.bean.PhotoBean">
+        SELECT id,user_id,photo_url,create_time,update_time FROM `photo_info` WHERE user_id=#{0};
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.test.serviceImpl;
 
+import com.test.bean.UserWeibo;
 import com.test.dao.WeiBoDao;
 import com.test.service.WeiBoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,12 @@ public class WeiBOServiceImpl implements WeiBoService {
 
     @Override
     public int saveUidAndUserId(String uid, String userId) {
-        return weiBoDao.saveUidAndUserId(uid,userId);
+        UserWeibo uw = new UserWeibo();
+        uw.setUserId(userId);
+        uw.setUid(uid);
+        System.out.println(uw.getId());
+        weiBoDao.saveUidAndUserId(uw);
+        System.out.println(uw.getId());
+        return uw.getId();
     }
 }

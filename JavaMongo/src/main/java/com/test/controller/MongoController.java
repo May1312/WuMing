@@ -1,6 +1,7 @@
 package com.test.controller;
 
 import com.test.bean.HttpResult;
+import com.test.bean.PhotoBean;
 import com.test.bean.User;
 import com.test.bean.pageBean;
 import com.test.service.HttpClientUtils;
@@ -92,6 +93,11 @@ public class MongoController {
 	public String showpage(Model model,@RequestParam(value = "currentPage",defaultValue = "0") int currentPage,@RequestParam(value = "rows",defaultValue = "20") int pageSize) {
 		List<User> users = mongoService.queryUser(currentPage,pageSize);
 		model.addAttribute("users", users);
+		//user_photo_url 返回
+		PhotoBean pb = userService.getPhotoBeanByUserId(UserThreadLocal.get().getUserId());
+		if(pb!=null){
+			model.addAttribute("photoUrl", "http://120.77.169.190:83"+pb.getPhotoUrl());
+		}
 		return "userlist";
 	}
 	@RequestMapping(value="/login",method = {RequestMethod.POST})
@@ -104,12 +110,13 @@ public class MongoController {
 		//user.setPassword(password);
 		String ticket = userService.login(user);
 		//
-		userService.checkUid(LoginController.uid,user);
-		System.out.println(LoginController.uid);
-		//置空静态成员变量
-		LoginController.uid = null;
+		if(StringUtils.isNotBlank(LoginController.uid)){
+			userService.checkUid(LoginController.uid,user);
+			System.out.println(LoginController.uid);
+			//置空静态成员变量
+			LoginController.uid = null;
+		}
 		Map map = new HashMap();
-
 		if (StringUtils.isNotBlank(ticket)) {
 			log4j.info("设置浏览器ticket："+ticket);
 			//CookieUtils.setCookie(request, response, "hang", ticket, 60 * 60 * 24 * 1, true);

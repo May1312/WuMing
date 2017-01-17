@@ -8,7 +8,6 @@ import java.util.Date;
  */
 public class PhotoBean implements Serializable {
     private static final long serialVersionUID = 1895675976220139182L;
-
     private int id;
     private String photoUrl;
     private String userId;

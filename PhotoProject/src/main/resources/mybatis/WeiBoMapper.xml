@@ -11,7 +11,7 @@
     <insert id="saveUid" parameterType="String">
         INSERT INTO `user_weibo` ( `uid`, `user_id`, `status`, `creat_time`) VALUES (#{uid}, userId, 0, NOW());
     </insert>
-    <insert id="saveUidAndUserId" keyProperty="id" useGeneratedKeys="true" parameterType="String">
-        INSERT INTO `user_weibo` ( `uid`, `user_id`, `status`, `creat_time`) VALUES (#{0}, #{1}, 0, NOW());
+    <insert id="saveUidAndUserId" keyProperty="id" useGeneratedKeys="true" parameterType="com.test.bean.UserWeibo">
+        INSERT INTO `user_weibo` ( `uid`, `user_id`, `status`, `creat_time`) VALUES (#{uid}, #{userId}, #{status}, NOW());
     </insert>
 </mapper>

@@ -168,6 +168,7 @@
             $("input[name='dialoginput']").click(function () {
                 $("#dialog").dialog('open');
             });
+            //to show photo
         });
         var file;
         function showphoto(e){
@@ -228,7 +229,8 @@
     <h2>点击new user</h2>
 </div>
 <div id="showphoto" style="margin-bottom:10px;">
-    <img src="${pageContext.request.contextPath}/images/trip.png" id="user_photo" width="50px" height="50px">
+   <%-- <img src="${pageContext.request.contextPath}/images/trip.png" id="user_photo" width="50px" height="50px">--%>
+       <img src=${photoUrl} id="user_photo" width="50px" height="50px">
 </div>
 <div>
     <input type="button" value="设置头像" id="showdialog" name="dialoginput">

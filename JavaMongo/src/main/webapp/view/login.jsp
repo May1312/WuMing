@@ -208,13 +208,12 @@
                     <p>你好,你当前的ip为:${ip}.  <a href="http://120.77.169.190:82/psb.jpg">HTML5</a></p>
 				</header>
 				<footer>
-					<a href="#first" class="button scrolly" onclick="changPage('div2','div3')">Proceed to Login</a>
+					<a href="#first" class="button scrolly" >Proceed to Login</a><%--onclick="changPage('div2','div3')"--%>
 				</footer>
 			</section>
          </div>
 		<!-- First -->
-    <div id="div2">
-        <div id="div1">
+        <div id="div2">
 			<section id="first" class="main">
 				<header>
 						<h2>Please input your username and password</h2>
@@ -239,7 +238,7 @@
                                 <%--<a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="login()">Login</a>--%>  <%--ajax重定向302错误--%>
                                 <%--<input type="submit" value="login">--%>
                                 <%--<a href="#second" onclick="changPage('div3','div2')">Regist</a>--%>
-                                <input type="button" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')"/>
+                                <input type="button" id="showregist" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')" />
                                 <wb:login-button type="3,2" onclick="weiboLogin()">登录按钮</wb:login-button>
                                <%-- <a href="https://api.weibo.com/oauth2/authorize?client_id=4141767579&redirect_uri=http://127.0.0.1/login/weibo/code&response_type=code
 " target="_self">weibo login</a>--%>
@@ -249,7 +248,7 @@
 			</section>
     </div>
     <!-- Second -->
-    <div id="div3" hidden="hidden">
+    <div id="div3" hidden="hidden" >
     <section id="second" class="main">
         <%--<header>
             <div class="container">
@@ -345,13 +344,10 @@
 						<li>&copy; It's My First Web.</li><li>Design: <a href="http://120.77.169.190:82/psb.jpg">HANG</a></li>
 					</ul>
 			</section>
-        <% String code = request.getParameter("code");%>
-            <%=code%>
-
 	</body>
     <script type="text/javascript">
         function login() {
-            document.getElementById('div1').setAttribute('hidden','hidden')
+            /*document.getElementById('div1').setAttribute('hidden','hidden')*/
             var name = $("#txt_name").val();
             var psd = $("#txt_psd").val();
             if(name==null || name == ""){
@@ -452,10 +448,10 @@
         function changPage(first,Second){
             document.getElementById(first).removeAttribute('hidden');
             document.getElementById(Second).setAttribute('hidden','hidden');
-
+            document.getElementById("showregist").setAttribute('src','#second');
         }
         function saveUser() {
-            document.getElementById('div1').setAttribute('hidden','hidden')
+            /*document.getElementById('div1').setAttribute('hidden','hidden')*/
             //为空不提交
             var name =  $('#name').val();
             //首行   尾行的 空格替除

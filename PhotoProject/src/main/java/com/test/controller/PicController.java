@@ -1,5 +1,6 @@
 package com.test.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.test.bean.PhotoBean;
 import com.test.service.PicService;
 import org.apache.commons.lang.StringUtils;
@@ -207,6 +208,12 @@ public class PicController {
     public ResponseEntity<String> findPhotoInfoByUserId(@RequestParam("userId") String userId){
         String url = picService.findPhotoInfoByUserId(userId);
         return ResponseEntity.ok(url);
+    }
+    @RequestMapping(value = "/getPhotoBean",method = RequestMethod.GET)
+    public ResponseEntity<String> getPhotoBean(@RequestParam("userId") String userId){
+        PhotoBean pb = picService.getPhotoBeanByUserId(userId);
+        String s = JSON.toJSONString(pb);
+        return ResponseEntity.ok(s);
     }
 }
 

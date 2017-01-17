@@ -1,5 +1,6 @@
 package com.test.service;
 
+import com.test.bean.PhotoBean;
 import com.test.bean.User;
 
 /**
@@ -13,4 +14,6 @@ public interface UserService {
     public String weiboLogin(String uid);
 
     public void checkUid(String uid,User user);
+
+    public PhotoBean getPhotoBeanByUserId(String userId);
 }

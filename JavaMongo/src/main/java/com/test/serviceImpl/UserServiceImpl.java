@@ -2,6 +2,7 @@ package com.test.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.test.bean.HttpResult;
+import com.test.bean.PhotoBean;
 import com.test.bean.User;
 import com.test.dao.UserDao;
 import com.test.service.HttpClientUtils;
@@ -35,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Value("${WeiBo_UID_URL}")
     private String WeiBo_UID_URL;
+
+    @Value("${HTTP_PHOTO_URL}")
+    private String HTTP_PHOTO_URL;
 
     public String login(User user) {
         User user2 = userDao.findUserByName(user.getName());
@@ -103,5 +107,14 @@ public class UserServiceImpl implements UserService {
             HttpResult httpResult1 = httpClientUtils.doPost(WeiBo_UID_URL+"saveUid", map);
             System.out.println(httpResult1.getBody());
         }
+    }
+
+    @Override
+    public PhotoBean getPhotoBeanByUserId(String userId) {
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("userId",userId);
+        String s = httpClientUtils.doGet(HTTP_PHOTO_URL + "getPhotoBean", map);
+        PhotoBean pb = JSON.parseObject(s, PhotoBean.class);
+        return pb;
     }
 }

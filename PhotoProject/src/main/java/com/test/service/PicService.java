@@ -9,4 +9,6 @@ public interface PicService {
     public int savePhotoInfo(PhotoBean pb);
 
     public String findPhotoInfoByUserId(String userId);
+
+    public PhotoBean getPhotoBeanByUserId(String userId);
 }

@@ -30,4 +30,10 @@ public class PicServiceImpl implements PicService{
     public String findPhotoInfoByUserId(String userId) {
         return picDao.findPhotoInfoByUserId(userId);
     }
+
+    @Override
+    public PhotoBean getPhotoBeanByUserId(String userId) {
+
+        return picDao.getPhotoBeanByUserId(userId);
+    }
 }

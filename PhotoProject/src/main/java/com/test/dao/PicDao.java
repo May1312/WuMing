@@ -15,4 +15,6 @@ public interface PicDao {
    public int updatePhotoInfo(PhotoBean pb);
 
    public String findPhotoInfoByUserId(String userId);
+
+   public PhotoBean getPhotoBeanByUserId(String userId);
 }
