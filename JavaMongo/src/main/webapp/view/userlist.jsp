@@ -194,7 +194,7 @@
                             };
                             $.ajax({
                                 type: "POST",
-                                url: "http://localhost/mongo/photo",
+                                url: "/mongo/photo",
                                 data: submitData,
                                 beforeSend: function(XMLHttpRequest){
                                     //showLoader();

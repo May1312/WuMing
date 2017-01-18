@@ -96,6 +96,7 @@ public class MongoController {
 		//user_photo_url 返回
 		PhotoBean pb = userService.getPhotoBeanByUserId(UserThreadLocal.get().getUserId());
 		if(pb!=null){
+			log4j.info("photo path:"+pb.getPhotoUrl());
 			model.addAttribute("photoUrl", "http://120.77.169.190:83"+pb.getPhotoUrl());
 		}
 		return "userlist";
