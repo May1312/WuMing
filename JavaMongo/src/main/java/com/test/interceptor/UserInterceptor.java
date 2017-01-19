@@ -21,6 +21,7 @@ public class UserInterceptor implements HandlerInterceptor {
     private UserService userService;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+            System.out.println(request.getRequestURL());
             String ticket = CookieUtils.getCookieValue(request, "hang", true);
         //判断用户是否登陆
         if(StringUtils.isNotBlank(ticket)){

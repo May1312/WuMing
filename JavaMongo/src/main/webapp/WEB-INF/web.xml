@@ -5,7 +5,6 @@
     id="WebApp_ID" version="3.0">
     <display-name>mongo-service</display-name>
 
-
 	<!-- 配置监听器加载spring -->
     <context-param>
 		<param-name>contextConfigLocation</param-name>
