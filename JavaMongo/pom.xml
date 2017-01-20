@@ -185,21 +185,48 @@
 	<profiles>
 		<profile>
 			<id>development</id>
-			<!--默认激活开发环境-->
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<properties>
+				<build.profile.id>development</build.profile.id>
+			</properties>
+			<build>
+				<filters>
+					<filter>src/main/resources/${build.profile.id}/url.properties</filter>
+				</filters>
+				<resources>
+					<resource>
+						<filtering>true</filtering>
+						<directory>src/main/resources/development</directory>
+					</resource>
+				</resources>
+			</build>
 		</profile>
 		<profile>
 			<id>production</id>
+			<properties>
+				<build.profile.id>production</build.profile.id>
+			</properties>
+			<build>
+				<filters>
+					<filter>src/main/resources/${build.profile.id}/url.properties</filter>
+				</filters>
+				<resources>
+					<resource>
+						<filtering>true</filtering>
+						<directory>src/main/resources/production</directory>
+					</resource>
+				</resources>
+			</build>
 		</profile>
 	</profiles>
 	<build>
-		<!--配置资源文件-->
+		<!--&lt;!&ndash;配置资源文件&ndash;&gt;
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
+				&lt;!&ndash; 资源根目录排除各环境的配置，使用单独的资源目录来指定 &ndash;&gt;
 				<excludes>
 					<exclude>production/*</exclude>
 					<exclude>development/*</exclude>
@@ -209,7 +236,7 @@
 				<directory>src/main/resources/${profiles.active}</directory>
 				<filtering>true</filtering>
 			</resource>
-		</resources>
+		</resources>-->
 		<plugins>
 			<!-- 配置Tomcat插件 -->
 			<!-- tomcat7:run -->

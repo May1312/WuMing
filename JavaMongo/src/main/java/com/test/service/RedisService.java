@@ -9,7 +9,7 @@ import redis.clients.jedis.ShardedJedisPool;
 public class RedisService {
 
     // required = false容器中有就注入，容器中没有就不注入
-    @Autowired//(required = false)
+    @Autowired(required = false)
     private ShardedJedisPool shardedJedisPool;
 
     /**

@@ -131,7 +131,7 @@ public class LoginController {
         //触发应用授权
         try {
                 PrintWriter writer = response.getWriter();
-            Oauth oauth = new Oauth();
+                Oauth oauth = new Oauth();
             /*writer.print("<script>"+"window.location.href='" + oauth.authorize("code") + "'<script>");*/
             writer.print(oauth.authorize("code"));
         } catch (Exception e) {

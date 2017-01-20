@@ -239,9 +239,8 @@
                                 <%--<input type="submit" value="login">--%>
                                 <%--<a href="#second" onclick="changPage('div3','div2')">Regist</a>--%>
                                 <input type="button" id="showregist" src="#second" style="width:120px;height: 49px;padding-top: 8px;padding-left: 4px;padding-right: 4px" value="Regist" onclick="changPage('div3','div2')" />
-                                <wb:login-button type="3,2" onclick="weiboLogin()">登录按钮</wb:login-button>
-                               <%-- <a href="https://api.weibo.com/oauth2/authorize?client_id=4141767579&redirect_uri=http://127.0.0.1/login/weibo/code&response_type=code
-" target="_self">weibo login</a>--%>
+                                <%--<wb:login-button type="3,2" onclick="weiboLogin()">登录按钮</wb:login-button>--%>
+                                <a href="https://api.weibo.com/oauth2/authorize?client_id=4141767579&redirect_uri=http://127.0.0.1/login/weibo/code&response_type=code" target="_self">weibo login</a>
                             </form>
 						</center>
 				</header>
