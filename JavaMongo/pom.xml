@@ -222,21 +222,17 @@
 		</profile>
 	</profiles>
 	<build>
-		<!--&lt;!&ndash;配置资源文件&ndash;&gt;
 		<resources>
 			<resource>
-				<directory>src/main/resources</directory>
-				&lt;!&ndash; 资源根目录排除各环境的配置，使用单独的资源目录来指定 &ndash;&gt;
-				<excludes>
-					<exclude>production/*</exclude>
-					<exclude>development/*</exclude>
-				</excludes>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
 			</resource>
 			<resource>
-				<directory>src/main/resources/${profiles.active}</directory>
-				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
 			</resource>
-		</resources>-->
+		</resources>
 		<plugins>
 			<!-- 配置Tomcat插件 -->
 			<!-- tomcat7:run -->

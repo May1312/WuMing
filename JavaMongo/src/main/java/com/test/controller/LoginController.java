@@ -75,6 +75,7 @@ public class LoginController {
         if(user!=null){
             Map<String,Object> map2 = new HashMap<String, Object>();
             map2.put("userId",user.getUserId());
+            log4j.info("HTTP_PHOTO_URL:"+HTTP_PHOTO_URL);
             String url = httpClientService.doGet(HTTP_PHOTO_URL + "showphoto", map2);
             if(StringUtils.isBlank(url)){
                 map.put("count",1);
